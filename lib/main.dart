@@ -1,17 +1,50 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
-import 'package:graph_swipe/pages/HomePage.dart';
+import 'package:graph_swipe/pages/DataPage.dart';
+import 'package:graph_swipe/pages/ExplorePage.dart';
+import 'package:graph_swipe/pages/FavouritePage.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MainApp());
 
-class MyApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MainAppState();
+  }
+}
+
+class _MainAppState extends State<MainApp> {
+  int selectedPage = 1;
+  final _pageOptions = [DataPage(), ExplorePage(), FavouritePage()];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tinder cards demo',
+      title: 'TITLE',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomePage(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("TITLE"),
+        ),
+        body: _pageOptions[selectedPage],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: selectedPage,
+          onTap: (int index) {
+            setState(() {
+              selectedPage = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.data_usage), label: 'Data'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.explore), label: 'Explore'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.favorite), label: 'Favourite')
+          ],
+        ),
+      ),
     );
   }
 }
