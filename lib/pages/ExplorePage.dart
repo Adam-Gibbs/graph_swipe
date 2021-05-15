@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:graph_swipe/pages/Content.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
-class HomePage extends StatefulWidget {
-  final String title = "My App";
-
+class ExplorePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _ExplorePageState createState() => _ExplorePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ExplorePageState extends State<ExplorePage> {
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   late MatchEngine _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -62,9 +60,6 @@ class _HomePageState extends State<HomePage> {
     addSwipeItems(5);
     return Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
         body: Container(
             child: Column(children: [
           Container(
