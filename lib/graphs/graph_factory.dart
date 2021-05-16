@@ -58,6 +58,9 @@ class GraphFactory {
       List<double> dataPair = [];
       dataPair.addAll(
           [(rand.nextDouble() * 400) - 200, (rand.nextDouble() * 400) - 200]);
+      if (dataPair.first == dataPair.last) {
+        dataPair.last += (rand.nextDouble() * 50);
+      }
       newData.addDataPair(dataPair);
     }
     dataSets.add(newData);
