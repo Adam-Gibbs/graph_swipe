@@ -1,3 +1,4 @@
+import 'package:graph_swipe/api_manager/random/random_string.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set_upgrader.dart';
 import 'package:graph_swipe/graphs/graph.dart';
@@ -6,18 +7,23 @@ import 'package:graph_swipe/graphs/types/bar_graph.dart';
 import 'package:graph_swipe/graphs/types/line_graph.dart';
 
 import 'dart:math';
-import 'package:english_words/english_words.dart';
 
 class GraphFactory {
   late String title;
   List<String> xLabels = [];
   List<DataSet> dataSets = [];
   ScaleGroups scales = new ScaleGroups();
+  int columns = 5;
   late Graph graph;
   Random rand = Random();
 
   GraphFactory(String title) {
     this.title = title;
+  }
+
+  GraphFactory setColumns(int columns) {
+    this.columns = columns;
+    return this;
   }
 
   GraphFactory defaultDataSet() {
@@ -34,9 +40,9 @@ class GraphFactory {
     return this;
   }
 
-  GraphFactory randomDataSet({int amount = 5}) {
-    DataSet newData = new DataSet(WordPair.random().first);
-    for (int i = 0; i < amount; i++) {
+  GraphFactory randomDataSet() {
+    DataSet newData = new DataSet(RandomString.randWord());
+    for (int i = 0; i < columns; i++) {
       newData.addData(rand.nextDouble() * 200);
     }
     dataSets.add(newData);
@@ -51,9 +57,9 @@ class GraphFactory {
     return this;
   }
 
-  GraphFactory randomLabels({int amount = 5}) {
-    for (int i = 0; i < amount; i++) {
-      xLabels.add(WordPair.random().first);
+  GraphFactory randomLabels() {
+    for (int i = 0; i < columns; i++) {
+      xLabels.add(RandomString.randWord());
     }
     return this;
   }
@@ -70,20 +76,16 @@ class GraphFactory {
   }
 
   GraphFactory makeBar() {
-    List<DataSet> tempDataSets = [];
-    dataSets.forEach(
-        (element) => {tempDataSets.add(DataSetUpgrader.toBar(element))});
-    dataSets = tempDataSets;
-    graph = new BarGraph(this.xLabels, this.dataSets);
+    graph = new BarGraph(this.xLabels)
+        .addBarDataSets(DataSetUpgrader.groupToBar(dataSets));
+    dataSets = graph.dataSets;
     return this;
   }
 
   GraphFactory makeLine() {
-    List<DataSet> tempDataSets = [];
-    dataSets.forEach(
-        (element) => {tempDataSets.add(DataSetUpgrader.toLine(element))});
-    dataSets = tempDataSets;
-    graph = new LineGraph(this.xLabels, this.dataSets);
+    graph = new LineGraph(this.xLabels)
+        .addLineDataSets(DataSetUpgrader.groupToLine(dataSets));
+    dataSets = graph.dataSets;
     return this;
   }
 

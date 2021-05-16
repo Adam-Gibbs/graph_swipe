@@ -24,6 +24,13 @@ class DataSetUpgrader {
     return upgradeSet;
   }
 
+  static List<DataSetBar> groupToBar(List<DataSet> dataSetList) {
+    List<DataSetBar> tempDataSets = [];
+    dataSetList.forEach(
+        (element) => {tempDataSets.add(DataSetUpgrader.toBar(element))});
+    return tempDataSets;
+  }
+
   static DataSetLine toLine(DataSet dataSet,
       {List<int> lineColour = DataSet.defaultColour,
       bool fill = false,
@@ -48,5 +55,12 @@ class DataSetUpgrader {
         yAxis: yAxis);
     upgradeSet.setDataList(dataSet.data);
     return upgradeSet;
+  }
+
+  static List<DataSetLine> groupToLine(List<DataSet> dataSetList) {
+    List<DataSetLine> tempDataSets = [];
+    dataSetList.forEach(
+        (element) => {tempDataSets.add(DataSetUpgrader.toLine(element))});
+    return tempDataSets;
   }
 }

@@ -1,42 +1,19 @@
 import 'package:graph_swipe/graphs/graph.dart';
-import 'package:graph_swipe/graphs/graph_factory.dart';
-import 'package:english_words/english_words.dart';
+import 'package:graph_swipe/api_manager/random/random_factory.dart';
 
 import 'dart:math';
 
 class GraphManager {
   late Graph graph;
+  RandomFactory maker = new RandomFactory();
   Random rand = Random();
 
   GraphManager() {
     createGraph("");
   }
 
-  String randTitle() {
-    return WordPair.random().join(" ").toUpperCase();
-  }
-
   void createGraph(String title) {
-    if (title.isEmpty) {
-      title = randTitle();
-    }
-    GraphFactory graphFactory = new GraphFactory(title);
-
-    int columns = rand.nextInt(7) + 3;
-    int loops = rand.nextInt(4) + 1;
-    for (int i = 0; i < loops; i++) {
-      graphFactory.randomDataSet(amount: columns);
-    }
-
-    graphFactory.randomColours().randomLabels(amount: columns).defaultScales();
-
-    if (rand.nextBool()) {
-      graphFactory.makeLine();
-    } else {
-      graphFactory.makeBar();
-    }
-
-    graph = graphFactory.defaultOptions().getGraph();
+    graph = maker.randomGraph();
   }
 
   String _getGraphString() {

@@ -1,3 +1,4 @@
+import 'package:graph_swipe/graphs/options/scale.dart';
 import 'package:graph_swipe/graphs/options/scale_groups.dart';
 
 class Options {
