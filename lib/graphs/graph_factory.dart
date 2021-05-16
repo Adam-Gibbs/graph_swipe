@@ -6,6 +6,8 @@ import 'package:graph_swipe/graphs/options/scale_groups.dart';
 import 'package:graph_swipe/graphs/types/bar_graph.dart';
 import 'package:graph_swipe/graphs/types/line_graph.dart';
 
+import 'dart:math';
+
 class GraphFactory {
   late String title;
   List<String> xLabels = [];
@@ -35,6 +37,19 @@ class GraphFactory {
     DataSetBar newData = new DataSetBar("Data");
     newData.setData([10, 50, 30, 5, 20]);
     dataSets.add(newData);
+    return this;
+  }
+
+  int _randRGB() {
+    Random random = Random();
+    // Pick a random number in the range [0.0, 1.0)
+    return random.nextInt(256);
+  }
+
+  GraphFactory randomColours() {
+    dataSets.forEach((element) => {
+          element.setColour([_randRGB(), _randRGB(), _randRGB()])
+        });
     return this;
   }
 

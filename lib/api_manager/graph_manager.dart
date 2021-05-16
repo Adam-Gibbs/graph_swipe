@@ -21,6 +21,7 @@ class GraphManager {
     }
     graph = new GraphFactory(title)
         .defaultDataSetLine()
+        .randomColours()
         .defaultLabels()
         .defaultScales()
         .makeLine()

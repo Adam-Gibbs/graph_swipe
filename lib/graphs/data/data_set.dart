@@ -22,6 +22,10 @@ class DataSet {
     valuePairList.forEach((element) => {data.addPair(element)});
   }
 
+  void setColour(List<int> colour) {
+    this.mainColour = colour;
+  }
+
   String showLabel() {
     return "label: '" + this.label + "',";
   }

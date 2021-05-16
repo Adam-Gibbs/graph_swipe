@@ -85,6 +85,8 @@ class DataSetLine extends DataSet {
 
   @override
   String showDataSet() {
+    this.lineColour = checkLineColour(this.lineColour, this.mainColour);
+
     return "{" +
         showLabel() +
         showColour("backgroundColor", mainColour, transparency) +
