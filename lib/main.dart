@@ -1,8 +1,8 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
-import 'package:graph_swipe/pages/DataPage.dart';
-import 'package:graph_swipe/pages/ExplorePage.dart';
-import 'package:graph_swipe/pages/FavouritePage.dart';
+import 'package:graph_swipe/pages/data_page.dart';
+import 'package:graph_swipe/pages/explore_page.dart';
+import 'package:graph_swipe/pages/favourite_page.dart';
 
 void main() => runApp(MainApp());
 
