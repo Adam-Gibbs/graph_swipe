@@ -57,7 +57,7 @@ class BarGraph extends Graph {
   }
 
   void addYAxisRelation(String label) {
-    Set<int> indexs = getHalfDataSets(dataSets);
+    Set<int> indexs = getHalfDataSets();
     indexs.forEach((element) => {_dataSets[element].alterSet(newYAxis: label)});
     _saveDataSets();
   }

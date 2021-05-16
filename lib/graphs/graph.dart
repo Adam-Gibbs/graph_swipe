@@ -14,7 +14,7 @@ abstract class Graph {
     this.xLabels = xLabels;
   }
 
-  Set<int> getHalfDataSets(List<DataSet> dataSets) {
+  Set<int> getHalfDataSets() {
     Set<int> uniqueIndexs = {};
     for (int i = 0; i < dataSets.length ~/ 2; i++) {
       int value = rand.nextInt(dataSets.length - 1);
@@ -22,6 +22,16 @@ abstract class Graph {
         value = rand.nextInt(dataSets.length - 1);
       }
       uniqueIndexs.add(value);
+    }
+    return uniqueIndexs;
+  }
+
+  Set<int> getRandomDataSets(double chance) {
+    Set<int> uniqueIndexs = {};
+    for (int i = 0; i < dataSets.length; i++) {
+      if (rand.nextDouble() < chance) {
+        uniqueIndexs.add(i);
+      }
     }
     return uniqueIndexs;
   }

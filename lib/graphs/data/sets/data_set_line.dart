@@ -105,7 +105,7 @@ class DataSetLine extends DataSet {
 
   String _showDashed() {
     if (this.dashed) {
-      return "borderDash: [5, 5]";
+      return "borderDash: [5, 5],";
     } else {
       return "";
     }
@@ -113,7 +113,7 @@ class DataSetLine extends DataSet {
 
   String _showCurved() {
     if (this.curved) {
-      return "lineTension: 0.4";
+      return "lineTension: 0.4,";
     } else {
       return "";
     }

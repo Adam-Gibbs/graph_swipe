@@ -40,6 +40,12 @@ class RandomFactory {
     } else {
       LineGraph aLine = RandomLineHelper.randomLineGraph(gf);
       RandomLineHelper.randomLineColour(rand, aLine);
+      RandomLineHelper.randomLineStepped(rand, aLine);
+      RandomLineHelper.randomLineDashed(rand, aLine);
+      RandomLineHelper.randomLineCurved(rand, aLine);
+      RandomLineHelper.randomLineFilled(rand, aLine);
+      RandomLineHelper.randomLineNoLine(rand, aLine);
+      RandomLineHelper.randomLinePoints(rand, aLine);
       return aLine;
     }
   }

@@ -51,8 +51,38 @@ class LineGraph extends Graph {
   }
 
   void addYAxisRelation(String label) {
-    Set<int> indexs = getHalfDataSets(dataSets);
+    Set<int> indexs = getHalfDataSets();
     indexs.forEach((element) => {_dataSets[element].alterSet(newYAxis: label)});
+    _saveDataSets();
+  }
+
+  void makeStepped(int index) {
+    _dataSets[index].stepped = true;
+    _saveDataSets();
+  }
+
+  void makeDashed(int index) {
+    _dataSets[index].dashed = true;
+    _saveDataSets();
+  }
+
+  void makeCurved(int index) {
+    _dataSets[index].curved = true;
+    _saveDataSets();
+  }
+
+  void makeFilled(int index) {
+    _dataSets[index].fill = true;
+    _saveDataSets();
+  }
+
+  void changePoints(int index, String newShape) {
+    _dataSets[index].pointStyle = newShape;
+    _saveDataSets();
+  }
+
+  void makeNoLine(int index) {
+    _dataSets[index].showLine = false;
     _saveDataSets();
   }
 
