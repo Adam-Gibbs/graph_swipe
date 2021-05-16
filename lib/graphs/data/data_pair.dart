@@ -18,6 +18,6 @@ class DataPair extends Data {
 
   @override
   String toString() {
-    return "[" + min.toString() + ", " + max.toString() + "],";
+    return "[" + min.toString() + ", " + max.toString() + "]";
   }
 }
