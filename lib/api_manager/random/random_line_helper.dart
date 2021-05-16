@@ -7,4 +7,11 @@ class RandomLineHelper {
   static LineGraph randomLineGraph(GraphFactory gf) {
     return gf.makeLine();
   }
+
+  static LineGraph randomLineColour(Random rand, LineGraph graph) {
+    if (rand.nextDouble() < 0.1) {
+      graph.randomLineColour();
+    }
+    return graph;
+  }
 }

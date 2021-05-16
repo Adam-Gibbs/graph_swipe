@@ -20,7 +20,6 @@ class RandomFactory {
     for (int i = 0; i < loops; i++) {
       gf.randomDataSet();
     }
-
     return gf;
   }
 
@@ -40,6 +39,7 @@ class RandomFactory {
       return aBar;
     } else {
       LineGraph aLine = RandomLineHelper.randomLineGraph(gf);
+      RandomLineHelper.randomLineColour(rand, aLine);
       return aLine;
     }
   }

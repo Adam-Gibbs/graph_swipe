@@ -32,6 +32,18 @@ class LineGraph extends Graph {
     return this;
   }
 
+  LineGraph randomLineColour() {
+    _dataSets.forEach((element) => {
+          element.lineColour = [
+            rand.nextInt(256),
+            rand.nextInt(256),
+            rand.nextInt(256)
+          ]
+        });
+    _saveDataSets();
+    return this;
+  }
+
   LineGraph addLineDataSets(List<DataSetLine> dataSets) {
     this._dataSets = dataSets;
     this.dataSets = dataSets;
