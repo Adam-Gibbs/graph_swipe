@@ -16,7 +16,7 @@ class RandomBarHelper {
   }
 
   static BarGraph roundedBars(Random rand, BarGraph graph) {
-    if (rand.nextDouble() < 0.3) {
+    if (rand.nextDouble() < 1.3 && !(graph.dataSets.first.data.hasPairs())) {
       graph.options.roundedBars = true;
     }
     return graph;

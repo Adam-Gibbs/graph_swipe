@@ -20,4 +20,8 @@ class DataList {
   String toString() {
     return data.toString();
   }
+
+  bool hasPairs() {
+    return (data.first is DataPair);
+  }
 }
