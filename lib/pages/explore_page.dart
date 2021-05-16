@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graph_swipe/graphs/graph_factory.dart';
+import 'package:graph_swipe/api_manager/graph_manager.dart';
 import 'package:graph_swipe/pages/content.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
@@ -12,14 +12,7 @@ class _ExplorePageState extends State<ExplorePage> {
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   late MatchEngine _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  String chartData = new GraphFactory("My First Bar")
-      .defaultDataSet()
-      .defaultLabels()
-      .defaultScales()
-      .makeBar()
-      .defaultOptions()
-      .getGraph()
-      .showGraph();
+  GraphManager graphManager = new GraphManager();
 
   double _getWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
@@ -39,7 +32,7 @@ class _ExplorePageState extends State<ExplorePage> {
               text: "Default",
               color: Colors.red,
               image: "https://quickchart.io/chart?c=" +
-                  chartData +
+                  graphManager.getGraphString() +
                   "&width=" +
                   _getWidth(context).toString() +
                   "&height=" +
@@ -64,7 +57,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    addSwipeItems(5);
+    addSwipeItems(2);
     return Scaffold(
         key: _scaffoldKey,
         body: Container(
