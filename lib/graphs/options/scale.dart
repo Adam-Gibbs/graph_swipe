@@ -1,3 +1,5 @@
+import 'package:graph_swipe/api_manager/random/random_string.dart';
+
 class Scale {
   late String id; // id: 'y'
   late String position; // position: 'bottom'
@@ -17,6 +19,10 @@ class Scale {
     this.displayLabel = displayLabel;
     this.label = label;
     this.stacked = stacked;
+  }
+
+  void randomLabel() {
+    this.label = RandomString.randWord();
   }
 
   String _showId() {

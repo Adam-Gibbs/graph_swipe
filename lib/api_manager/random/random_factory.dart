@@ -50,6 +50,27 @@ class RandomFactory {
     }
   }
 
+  Graph _randomStacked(Graph graph) {
+    if (rand.nextDouble() < 0.3) {
+      graph.options.scales.makeStacked();
+    }
+    return graph;
+  }
+
+  Graph _randomLables(Graph graph) {
+    if (rand.nextDouble() < 0.1) {
+      graph.options.dataLabels = true;
+    }
+    return graph;
+  }
+
+  Graph _randomAxesLables(Graph graph) {
+    if (rand.nextDouble() < 0.2) {
+      graph.options.scales.makeLabelsShow();
+    }
+    return graph;
+  }
+
   Graph _randTwoAxes(Graph graph) {
     if (rand.nextDouble() < 0.05) {
       graph.options.scales.createYScale("y2", "right");
@@ -65,6 +86,9 @@ class RandomFactory {
     _addDataSets(graphFactory);
     graphFactory.randomColours().randomLabels().defaultScales();
     Graph newGraph = _chooseGraph(graphFactory);
+    _randomStacked(newGraph);
+    _randomLables(newGraph);
+    _randomAxesLables(newGraph);
     return _randTwoAxes(newGraph);
   }
 }

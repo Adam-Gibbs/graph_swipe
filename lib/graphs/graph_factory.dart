@@ -41,7 +41,8 @@ class GraphFactory {
   GraphFactory randomDataSet() {
     DataSet newData = new DataSet(RandomString.randWord());
     for (int i = 0; i < columns; i++) {
-      newData.addData(rand.nextDouble() * 200);
+      newData
+          .addData(double.parse((rand.nextDouble() * 200).toStringAsFixed(2)));
     }
     dataSets.add(newData);
     return this;
@@ -56,10 +57,13 @@ class GraphFactory {
     DataSet newData = new DataSet(RandomString.randWord());
     for (int i = 0; i < columns; i++) {
       List<double> dataPair = [];
-      dataPair.addAll(
-          [(rand.nextDouble() * 400) - 200, (rand.nextDouble() * 400) - 200]);
+      dataPair.addAll([
+        double.parse(((rand.nextDouble() * 200) - 200).toStringAsFixed(2)),
+        double.parse(((rand.nextDouble() * 200) - 200).toStringAsFixed(2))
+      ]);
       if (dataPair.first == dataPair.last) {
-        dataPair.last += (rand.nextDouble() * 50);
+        dataPair.last +=
+            (double.parse((rand.nextDouble() * 50).toStringAsFixed(2)));
       }
       newData.addDataPair(dataPair);
     }

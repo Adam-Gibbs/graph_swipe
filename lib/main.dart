@@ -25,7 +25,7 @@ class _MainAppState extends State<MainApp> {
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("TITLE"),
+          title: Text("Graph Swiper"),
         ),
         body: _pageOptions[selectedPage],
         bottomNavigationBar: BottomNavigationBar(

@@ -44,6 +44,22 @@ class ScaleGroups {
         stacked: stacked));
   }
 
+  void makeStacked() {
+    xScales.forEach((element) => {element.stacked = true});
+    yScales.forEach((element) => {element.stacked = true});
+  }
+
+  void makeLabelsShow() {
+    xScales.forEach((element) {
+      element.displayLabel = true;
+      element.randomLabel();
+    });
+    yScales.forEach((element) {
+      element.displayLabel = true;
+      element.randomLabel();
+    });
+  }
+
   String _showScaleList(List<Scale> scalesToShow) {
     String finString = "";
     scalesToShow.forEach((element) => {finString += element.showScale()});
