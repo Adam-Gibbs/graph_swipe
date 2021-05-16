@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graph_swipe/pages/Content.dart';
+import 'package:graph_swipe/graphs/graph_factory.dart';
+import 'package:graph_swipe/pages/content.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -11,8 +12,14 @@ class _ExplorePageState extends State<ExplorePage> {
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   late MatchEngine _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  String chartData =
-      "{type:'bar',data:{labels:[2012,2013,2014,2015,2016],datasets:[{label:'Users',data:[120,60,50,180,120]}]}}";
+  String chartData = new GraphFactory("My First Bar")
+      .defaultDataSet()
+      .defaultLabels()
+      .defaultScales()
+      .makeBar()
+      .defaultOptions()
+      .getGraph()
+      .showGraph();
 
   double _getWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
