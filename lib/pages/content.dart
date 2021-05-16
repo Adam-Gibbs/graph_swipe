@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:graph_swipe/graphs/graph.dart';
 
 class Content {
-  String? text;
-  Color? color;
+  Graph? graphData;
   String? image;
 
-  Content({this.text, this.color, this.image});
+  Content({this.graphData, this.image});
 }

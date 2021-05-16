@@ -27,23 +27,23 @@ class _ExplorePageState extends State<ExplorePage> {
 
   void addSwipeItems(int quantity) {
     for (int i = 0; i < quantity; i++) {
+      graphManager.createGraph();
       _swipeItems.add(SwipeItem(
           content: Content(
-              text: "Default",
-              color: Colors.red,
-              image: "https://quickchart.io/chart?c=" +
-                  graphManager.getGraphString() +
-                  "&width=" +
-                  _getWidth(context).toString() +
-                  "&height=" +
-                  _getThreeQuarterHeight(context).toString()),
+            graphData: graphManager.getGraphData(),
+            image: graphManager.getGraphImage(_getWidth(context).toString(),
+                _getThreeQuarterHeight(context).toString()),
+          ),
           likeAction: () {
+            // TODO: trigger save, take graphmanager.geGraphData() to save
             print("like");
           },
           nopeAction: () {
+            // TODO: probs nothing here
             print("dislike");
           },
           superlikeAction: () {
+            // TODO: launch customise menu, take graphmanager.geGraphData() to use
             print("custom");
           }));
     }
