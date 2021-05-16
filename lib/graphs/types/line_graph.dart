@@ -1,4 +1,4 @@
-import 'package:graph_swipe/graphs/data/data_set.dart';
+import 'package:graph_swipe/graphs/data/sets/data_set.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/options/options.dart';
 

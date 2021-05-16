@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/graph_factory.dart';
 import 'package:english_words/english_words.dart';
@@ -20,7 +18,9 @@ class GraphManager {
       title = randTitle();
     }
     graph = new GraphFactory(title)
-        .defaultDataSetLine()
+        .randomDataSet()
+        .randomDataSet()
+        .randomDataSet()
         .randomColours()
         .defaultLabels()
         .defaultScales()

@@ -1,12 +1,14 @@
-import 'package:graph_swipe/graphs/data/data_set.dart';
-import 'package:graph_swipe/graphs/data/data_set_bar.dart';
-import 'package:graph_swipe/graphs/data/data_set_line.dart';
+import 'package:graph_swipe/graphs/data/sets/data_set.dart';
+import 'package:graph_swipe/graphs/data/sets/data_set_bar.dart';
+import 'package:graph_swipe/graphs/data/sets/data_set_line.dart';
+import 'package:graph_swipe/graphs/data/sets/data_set_upgrader.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/options/scale_groups.dart';
 import 'package:graph_swipe/graphs/types/bar_graph.dart';
 import 'package:graph_swipe/graphs/types/line_graph.dart';
 
 import 'dart:math';
+import 'package:english_words/english_words.dart';
 
 class GraphFactory {
   late String title;
@@ -14,6 +16,7 @@ class GraphFactory {
   List<DataSet> dataSets = [];
   ScaleGroups scales = new ScaleGroups();
   late Graph graph;
+  Random rand = Random();
 
   GraphFactory(String title) {
     this.title = title;
@@ -26,29 +29,30 @@ class GraphFactory {
     return this;
   }
 
-  GraphFactory defaultDataSetLine() {
-    DataSetLine newData = new DataSetLine("Data");
-    newData.setData([10, 50, 30, 5, 20]);
+  GraphFactory addDataSet(String title, List<double> valueList) {
+    DataSet newData = new DataSet(title);
+    newData.setData(valueList);
     dataSets.add(newData);
     return this;
   }
 
-  GraphFactory defaultDataSetBar() {
-    DataSetBar newData = new DataSetBar("Data");
-    newData.setData([10, 50, 30, 5, 20]);
+  GraphFactory randomDataSet() {
+    DataSet newData = new DataSet(WordPair.random().first);
+    newData.setData([
+      rand.nextDouble() * 200,
+      rand.nextDouble() * 200,
+      rand.nextDouble() * 200,
+      rand.nextDouble() * 200,
+      rand.nextDouble() * 200
+    ]);
     dataSets.add(newData);
     return this;
-  }
-
-  int _randRGB() {
-    Random random = Random();
-    // Pick a random number in the range [0.0, 1.0)
-    return random.nextInt(256);
   }
 
   GraphFactory randomColours() {
     dataSets.forEach((element) => {
-          element.setColour([_randRGB(), _randRGB(), _randRGB()])
+          element.setColour(
+              [rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)])
         });
     return this;
   }
@@ -65,11 +69,19 @@ class GraphFactory {
   }
 
   GraphFactory makeBar() {
+    List<DataSet> tempDataSets = [];
+    dataSets.forEach(
+        (element) => {tempDataSets.add(DataSetUpgrader.toBar(element))});
+    dataSets = tempDataSets;
     graph = new BarGraph(this.xLabels, this.dataSets);
     return this;
   }
 
   GraphFactory makeLine() {
+    List<DataSet> tempDataSets = [];
+    dataSets.forEach(
+        (element) => {tempDataSets.add(DataSetUpgrader.toLine(element))});
+    dataSets = tempDataSets;
     graph = new LineGraph(this.xLabels, this.dataSets);
     return this;
   }

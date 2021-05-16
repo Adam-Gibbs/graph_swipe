@@ -14,6 +14,10 @@ class DataSet {
     this.transparency = transparency;
   }
 
+  setDataList(DataList dataList) {
+    this.data = dataList;
+  }
+
   setData(List<double> valueList) {
     valueList.forEach((element) => {data.add(element)});
   }
