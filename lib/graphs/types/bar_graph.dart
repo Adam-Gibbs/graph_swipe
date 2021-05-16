@@ -31,6 +31,24 @@ class BarGraph extends Graph {
     this.dataSets = upgradedSets;
   }
 
+  @override
+  BarGraph setDefaultOptions(title, scales) {
+    this.options = new Options(title, scales);
+    return this;
+  }
+
+  BarGraph randomBorderColour() {
+    _dataSets.forEach((element) => {
+          element.borderColour = [
+            rand.nextInt(256),
+            rand.nextInt(256),
+            rand.nextInt(256)
+          ]
+        });
+    _saveDataSets();
+    return this;
+  }
+
   BarGraph addBarDataSets(List<DataSetBar> dataSets) {
     this._dataSets = dataSets;
     this.dataSets = dataSets;

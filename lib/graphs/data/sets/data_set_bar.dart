@@ -2,17 +2,21 @@ import 'package:graph_swipe/graphs/data/sets/data_set.dart';
 
 class DataSetBar extends DataSet {
   List<int> borderColour = [];
-  late double borderWidth;
+  late int borderWidth;
   late String yAxis;
 
   DataSetBar(String label,
       {List<int> colour = DataSet.defaultColour,
       double transparency = 0.8,
       List<int> borderColour = DataSet.defaultColour,
-      double borderWidth = 1,
+      int borderWidth = 2,
       String yAxis = "y"})
       : super(label, colour: colour, transparency: transparency) {
-    this.borderColour = borderColour;
+    if (borderColour == DataSet.defaultColour) {
+      this.borderColour = colour;
+    } else {
+      this.borderColour = borderColour;
+    }
     this.borderWidth = borderWidth;
     this.yAxis = yAxis;
   }
@@ -23,7 +27,7 @@ class DataSetBar extends DataSet {
       List<int> newColour = DataSet.defaultColour,
       double newTransparency = 0.8,
       List<int> newBorderColour = DataSet.defaultColour,
-      double newBorderWidth = 1,
+      int newBorderWidth = 2,
       String newYAxis = "y"}) {
     if (newLabel != "") {
       this.label = newLabel;
@@ -57,8 +61,8 @@ class DataSetBar extends DataSet {
   String showDataSet() {
     return "{" +
         showLabel() +
-        showColour("backgroundColor", mainColour, transparency) +
-        showColour("borderColour", borderColour, 1) +
+        showColour("backgroundColor", this.mainColour, transparency) +
+        showColour("borderColor", this.borderColour, 1) +
         _showBorderWidth() +
         _showYAxis() +
         showData() +

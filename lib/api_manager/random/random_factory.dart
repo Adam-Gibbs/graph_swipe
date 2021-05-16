@@ -4,6 +4,9 @@ import 'package:graph_swipe/graphs/graph_factory.dart';
 
 import 'dart:math';
 
+import 'package:graph_swipe/graphs/types/bar_graph.dart';
+import 'package:graph_swipe/graphs/types/line_graph.dart';
+
 class RandomFactory {
   Random rand = Random();
 
@@ -20,19 +23,29 @@ class RandomFactory {
     return gf;
   }
 
-  GraphFactory _randomBarGraph(GraphFactory gf) {
+  BarGraph _randomBarGraph(GraphFactory gf) {
     return gf.makeBar();
   }
 
-  GraphFactory _randomLineGraph(GraphFactory gf) {
+  LineGraph _randomLineGraph(GraphFactory gf) {
     return gf.makeLine();
   }
 
-  GraphFactory _chooseGraph(GraphFactory gf) {
+  BarGraph _randomBorderColour(BarGraph graph) {
+    if (rand.nextDouble() < 0.1) {
+      graph.randomBorderColour();
+    }
+    return graph;
+  }
+
+  Graph _chooseGraph(GraphFactory gf) {
     if (rand.nextBool()) {
-      return _randomBarGraph(gf);
+      BarGraph aBar = _randomBarGraph(gf);
+      _randomBorderColour(aBar);
+      return aBar;
     } else {
-      return _randomLineGraph(gf);
+      LineGraph aLine = _randomLineGraph(gf);
+      return aLine;
     }
   }
 
@@ -50,7 +63,7 @@ class RandomFactory {
     _setColumns(graphFactory);
     _addDataSets(graphFactory);
     graphFactory.randomColours().randomLabels().defaultScales();
-    _chooseGraph(graphFactory).defaultOptions();
-    return _randTwoAxes(graphFactory.getGraph());
+    Graph newGraph = _chooseGraph(graphFactory);
+    return _randTwoAxes(newGraph);
   }
 }

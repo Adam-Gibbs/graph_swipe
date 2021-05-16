@@ -34,8 +34,9 @@ abstract class Graph {
     this.options = options;
   }
 
-  void setDefaultOptions(title, scales) {
+  Graph setDefaultOptions(title, scales) {
     this.options = new Options(title, scales);
+    return this;
   }
 
   void setRandomOptions(title, scales) {

@@ -12,7 +12,7 @@ class DataSetUpgrader {
 
   static DataSetBar toBar(DataSet dataSet,
       {List<int> borderColour = DataSet.defaultColour,
-      double borderWidth = 1,
+      int borderWidth = 2,
       String yAxis = "y"}) {
     DataSetBar upgradeSet = new DataSetBar(dataSet.label,
         colour: dataSet.mainColour,

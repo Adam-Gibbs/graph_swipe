@@ -26,6 +26,12 @@ class LineGraph extends Graph {
     this.dataSets = upgradedSets;
   }
 
+  @override
+  LineGraph setDefaultOptions(title, scales) {
+    this.options = new Options(title, scales);
+    return this;
+  }
+
   LineGraph addLineDataSets(List<DataSetLine> dataSets) {
     this._dataSets = dataSets;
     this.dataSets = dataSets;

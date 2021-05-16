@@ -14,7 +14,6 @@ class GraphFactory {
   List<DataSet> dataSets = [];
   ScaleGroups scales = new ScaleGroups();
   int columns = 5;
-  late Graph graph;
   Random rand = Random();
 
   GraphFactory(String title) {
@@ -75,26 +74,19 @@ class GraphFactory {
     return this;
   }
 
-  GraphFactory makeBar() {
-    graph = new BarGraph(this.xLabels)
-        .addBarDataSets(DataSetUpgrader.groupToBar(dataSets));
+  BarGraph makeBar() {
+    BarGraph graph = new BarGraph(this.xLabels)
+        .addBarDataSets(DataSetUpgrader.groupToBar(dataSets))
+        .setDefaultOptions(this.title, this.scales);
     dataSets = graph.dataSets;
-    return this;
+    return graph;
   }
 
-  GraphFactory makeLine() {
-    graph = new LineGraph(this.xLabels)
-        .addLineDataSets(DataSetUpgrader.groupToLine(dataSets));
+  LineGraph makeLine() {
+    LineGraph graph = new LineGraph(this.xLabels)
+        .addLineDataSets(DataSetUpgrader.groupToLine(dataSets))
+        .setDefaultOptions(this.title, this.scales);
     dataSets = graph.dataSets;
-    return this;
-  }
-
-  GraphFactory defaultOptions() {
-    graph.setDefaultOptions(this.title, this.scales);
-    return this;
-  }
-
-  Graph getGraph() {
     return graph;
   }
 }
