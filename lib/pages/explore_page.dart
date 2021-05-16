@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:graph_swipe/api_manager/graph_manager.dart';
 import 'package:graph_swipe/pages/content.dart';
 import 'package:swipe_cards/swipe_cards.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class ExplorePage extends StatefulWidget {
   @override

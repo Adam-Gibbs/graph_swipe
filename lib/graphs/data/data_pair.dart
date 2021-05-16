@@ -15,4 +15,9 @@ class DataPair extends Data {
   List<double> getvalues() {
     return <double>[this.min, this.max];
   }
+
+  @override
+  String toString() {
+    return "[" + min.toString() + ", " + max.toString() + "],";
+  }
 }

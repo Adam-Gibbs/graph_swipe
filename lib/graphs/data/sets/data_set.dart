@@ -14,19 +14,23 @@ class DataSet {
     this.transparency = transparency;
   }
 
-  setDataList(DataList dataList) {
+  void setDataList(DataList dataList) {
     this.data = dataList;
   }
 
-  addData(double value) {
+  void addData(double value) {
     this.data.add(value);
   }
 
-  setData(List<double> valueList) {
+  void addDataPair(List<double> valueList) {
+    data.addPair(valueList);
+  }
+
+  void setData(List<double> valueList) {
     valueList.forEach((element) => {this.data.add(element)});
   }
 
-  setDataPairs(List<List<double>> valuePairList) {
+  void setDataPairs(List<List<double>> valuePairList) {
     valuePairList.forEach((element) => {data.addPair(element)});
   }
 

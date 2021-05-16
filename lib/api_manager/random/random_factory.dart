@@ -39,14 +39,22 @@ class RandomFactory {
   }
 
   BarGraph _roundedBars(BarGraph graph) {
-    if (rand.nextDouble() < 0.2) {
+    if (rand.nextDouble() < 0.3) {
       graph.options.roundedBars = true;
     }
     return graph;
   }
 
+  GraphFactory _dataPairs(GraphFactory gf) {
+    if (rand.nextDouble() < 0.2) {
+      gf.removeDataSets().randomDataPairs().randomColours();
+    }
+    return gf;
+  }
+
   Graph _chooseGraph(GraphFactory gf) {
     if (rand.nextBool()) {
+      _dataPairs(gf);
       BarGraph aBar = _randomBarGraph(gf);
       _randomBorderColour(aBar);
       _roundedBars(aBar);

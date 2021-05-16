@@ -1,7 +1,6 @@
 import 'package:graph_swipe/api_manager/random/random_string.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set_upgrader.dart';
-import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/options/scale_groups.dart';
 import 'package:graph_swipe/graphs/types/bar_graph.dart';
 import 'package:graph_swipe/graphs/types/line_graph.dart';
@@ -43,6 +42,23 @@ class GraphFactory {
     DataSet newData = new DataSet(RandomString.randWord());
     for (int i = 0; i < columns; i++) {
       newData.addData(rand.nextDouble() * 200);
+    }
+    dataSets.add(newData);
+    return this;
+  }
+
+  GraphFactory removeDataSets() {
+    dataSets = [];
+    return this;
+  }
+
+  GraphFactory randomDataPairs() {
+    DataSet newData = new DataSet(RandomString.randWord());
+    for (int i = 0; i < columns; i++) {
+      List<double> dataPair = [];
+      dataPair.addAll(
+          [(rand.nextDouble() * 400) - 200, (rand.nextDouble() * 400) - 200]);
+      newData.addDataPair(dataPair);
     }
     dataSets.add(newData);
     return this;

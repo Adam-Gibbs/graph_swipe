@@ -15,19 +15,15 @@ abstract class Graph {
   }
 
   Set<int> getHalfDataSets(List<DataSet> dataSets) {
-    if (dataSets.length < 2) {
-      return {1};
-    } else {
-      Set<int> uniqueIndexs = {};
-      for (int i = 0; i < dataSets.length ~/ 2; i++) {
-        int value = rand.nextInt(dataSets.length - 1);
-        while (uniqueIndexs.contains(value)) {
-          value = rand.nextInt(dataSets.length - 1);
-        }
-        uniqueIndexs.add(value);
+    Set<int> uniqueIndexs = {};
+    for (int i = 0; i < dataSets.length ~/ 2; i++) {
+      int value = rand.nextInt(dataSets.length - 1);
+      while (uniqueIndexs.contains(value)) {
+        value = rand.nextInt(dataSets.length - 1);
       }
-      return uniqueIndexs;
+      uniqueIndexs.add(value);
     }
+    return uniqueIndexs;
   }
 
   void setOptions(Options options) {
