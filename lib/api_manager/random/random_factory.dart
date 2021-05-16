@@ -38,10 +38,18 @@ class RandomFactory {
     return graph;
   }
 
+  BarGraph _roundedBars(BarGraph graph) {
+    if (rand.nextDouble() < 0.2) {
+      graph.options.roundedBars = true;
+    }
+    return graph;
+  }
+
   Graph _chooseGraph(GraphFactory gf) {
     if (rand.nextBool()) {
       BarGraph aBar = _randomBarGraph(gf);
       _randomBorderColour(aBar);
+      _roundedBars(aBar);
       return aBar;
     } else {
       LineGraph aLine = _randomLineGraph(gf);
