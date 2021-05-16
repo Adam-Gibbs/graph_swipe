@@ -18,8 +18,12 @@ class DataSet {
     this.data = dataList;
   }
 
+  addData(double value) {
+    this.data.add(value);
+  }
+
   setData(List<double> valueList) {
-    valueList.forEach((element) => {data.add(element)});
+    valueList.forEach((element) => {this.data.add(element)});
   }
 
   setDataPairs(List<List<double>> valuePairList) {

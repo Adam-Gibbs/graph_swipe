@@ -22,12 +22,13 @@ class GraphManager {
     }
     GraphFactory graphFactory = new GraphFactory(title);
 
-    int loops = rand.nextInt(5);
+    int columns = rand.nextInt(7) + 3;
+    int loops = rand.nextInt(4) + 1;
     for (int i = 0; i < loops; i++) {
-      graphFactory.randomDataSet();
+      graphFactory.randomDataSet(amount: columns);
     }
 
-    graphFactory.randomColours().defaultLabels().defaultScales();
+    graphFactory.randomColours().randomLabels(amount: columns).defaultScales();
 
     if (rand.nextBool()) {
       graphFactory.makeLine();

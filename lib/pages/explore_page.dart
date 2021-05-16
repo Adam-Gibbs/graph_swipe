@@ -10,6 +10,7 @@ class ExplorePage extends StatefulWidget {
 
 class _ExplorePageState extends State<ExplorePage> {
   List<SwipeItem> _swipeItems = <SwipeItem>[];
+  int _swipeIndex = -1;
   late MatchEngine _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   GraphManager graphManager = new GraphManager();
@@ -35,15 +36,20 @@ class _ExplorePageState extends State<ExplorePage> {
                 _getThreeQuarterHeight(context).toString()),
           ),
           likeAction: () {
-            // TODO: trigger save, take graphmanager.geGraphData() to save
+            // TODO: trigger save, take content.graphData to save
+            _swipeIndex++;
             print("like");
+            print(_swipeItems[_swipeIndex].content.image);
           },
           nopeAction: () {
             // TODO: probs nothing here
+            _swipeIndex++;
             print("dislike");
           },
           superlikeAction: () {
-            // TODO: launch customise menu, take graphmanager.geGraphData() to use
+            // TODO: launch customise menu, take content.graphData to use
+            _swipeIndex++;
+            print(_swipeItems[_swipeIndex].decision);
             print("custom");
           }));
     }

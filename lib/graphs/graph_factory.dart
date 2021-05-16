@@ -34,15 +34,11 @@ class GraphFactory {
     return this;
   }
 
-  GraphFactory randomDataSet() {
+  GraphFactory randomDataSet({int amount = 5}) {
     DataSet newData = new DataSet(WordPair.random().first);
-    newData.setData([
-      rand.nextDouble() * 200,
-      rand.nextDouble() * 200,
-      rand.nextDouble() * 200,
-      rand.nextDouble() * 200,
-      rand.nextDouble() * 200
-    ]);
+    for (int i = 0; i < amount; i++) {
+      newData.addData(rand.nextDouble() * 200);
+    }
     dataSets.add(newData);
     return this;
   }
@@ -52,6 +48,13 @@ class GraphFactory {
           element.setColour(
               [rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)])
         });
+    return this;
+  }
+
+  GraphFactory randomLabels({int amount = 5}) {
+    for (int i = 0; i < amount; i++) {
+      xLabels.add(WordPair.random().first);
+    }
     return this;
   }
 
