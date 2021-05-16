@@ -89,7 +89,7 @@ class _ExplorePageState extends State<ExplorePage> {
               },
               onStackFinished: () {
                 print("Done");
-                addSwipeItems(10);
+                addSwipeItems(20);
               },
             ),
           ),

@@ -2,8 +2,11 @@ import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/graph_factory.dart';
 import 'package:english_words/english_words.dart';
 
+import 'dart:math';
+
 class GraphManager {
   late Graph graph;
+  Random rand = Random();
 
   GraphManager() {
     createGraph("");
@@ -17,16 +20,22 @@ class GraphManager {
     if (title.isEmpty) {
       title = randTitle();
     }
-    graph = new GraphFactory(title)
-        .randomDataSet()
-        .randomDataSet()
-        .randomDataSet()
-        .randomColours()
-        .defaultLabels()
-        .defaultScales()
-        .makeLine()
-        .defaultOptions()
-        .getGraph();
+    GraphFactory graphFactory = new GraphFactory(title);
+
+    int loops = rand.nextInt(5);
+    for (int i = 0; i < loops; i++) {
+      graphFactory.randomDataSet();
+    }
+
+    graphFactory.randomColours().defaultLabels().defaultScales();
+
+    if (rand.nextBool()) {
+      graphFactory.makeLine();
+    } else {
+      graphFactory.makeBar();
+    }
+
+    graph = graphFactory.defaultOptions().getGraph();
   }
 
   String _getGraphString() {
