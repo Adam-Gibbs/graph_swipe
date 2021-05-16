@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graph_swipe/api_manager/graph_manager.dart';
 import 'package:graph_swipe/pages/content.dart';
 import 'package:swipe_cards/swipe_cards.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ExplorePage extends StatefulWidget {
   @override
@@ -39,7 +40,6 @@ class _ExplorePageState extends State<ExplorePage> {
             // TODO: trigger save, take content.graphData to save
             _swipeIndex++;
             print("like");
-            print(_swipeItems[_swipeIndex].content.image);
           },
           nopeAction: () {
             // TODO: probs nothing here
@@ -49,7 +49,6 @@ class _ExplorePageState extends State<ExplorePage> {
           superlikeAction: () {
             // TODO: launch customise menu, take content.graphData to use
             _swipeIndex++;
-            print(_swipeItems[_swipeIndex].decision);
             print("custom");
           }));
     }
@@ -89,7 +88,11 @@ class _ExplorePageState extends State<ExplorePage> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15.0),
-                    child: Image.network(_swipeItems[index].content.image),
+                    child: FadeInImage(
+                      placeholder: AssetImage(
+                          'res/circular_progress_indicator_selective.gif'),
+                      image: NetworkImage(_swipeItems[index].content.image),
+                    ),
                   ),
                 );
               },
