@@ -35,6 +35,58 @@ class DataSetLine extends DataSet {
     this.yAxis = yAxis;
   }
 
+  @override
+  void alterSet(
+      {String newLabel = "",
+      List<int> newColour = DataSet.defaultColour,
+      double newTransparency = 0.8,
+      List<int> newLineColour = DataSet.defaultColour,
+      bool newFill = false,
+      bool newStepped = false,
+      bool newDashed = false,
+      bool newCurved = false,
+      bool newShowLine = true,
+      String newPointStyle = 'circle',
+      int newPointRadius = 3,
+      String newYAxis = "y"}) {
+    if (newLabel != "") {
+      this.label = newLabel;
+    }
+    if (newColour != DataSet.defaultColour) {
+      this.mainColour = newColour;
+    }
+    if (newTransparency != 0.8) {
+      this.transparency = newTransparency;
+    }
+    if (newLineColour != DataSet.defaultColour) {
+      this.lineColour = newLineColour;
+    }
+    if (newFill != false) {
+      this.fill = newFill;
+    }
+    if (newStepped != false) {
+      this.stepped = newStepped;
+    }
+    if (newDashed != false) {
+      this.dashed = newDashed;
+    }
+    if (newCurved != false) {
+      this.curved = newCurved;
+    }
+    if (newShowLine != true) {
+      this.showLine = newShowLine;
+    }
+    if (newPointStyle != 'circle') {
+      this.pointStyle = newPointStyle;
+    }
+    if (newPointRadius != 3) {
+      this.pointRadius = newPointRadius;
+    }
+    if (newYAxis != "y") {
+      this.yAxis = newYAxis;
+    }
+  }
+
   List<int> checkLineColour(List<int> line, List<int> main) {
     if (line == DataSet.defaultColour) {
       return main;

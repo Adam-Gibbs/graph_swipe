@@ -17,6 +17,34 @@ class DataSetBar extends DataSet {
     this.yAxis = yAxis;
   }
 
+  @override
+  void alterSet(
+      {String newLabel = "",
+      List<int> newColour = DataSet.defaultColour,
+      double newTransparency = 0.8,
+      List<int> newBorderColour = DataSet.defaultColour,
+      double newBorderWidth = 1,
+      String newYAxis = "y"}) {
+    if (newLabel != "") {
+      this.label = newLabel;
+    }
+    if (newColour != DataSet.defaultColour) {
+      this.mainColour = newColour;
+    }
+    if (newTransparency != 0.8) {
+      this.transparency = newTransparency;
+    }
+    if (newBorderColour != DataSet.defaultColour) {
+      this.borderColour = newBorderColour;
+    }
+    if (newBorderWidth != 1) {
+      this.borderWidth = newBorderWidth;
+    }
+    if (newYAxis != "y") {
+      this.yAxis = newYAxis;
+    }
+  }
+
   String _showBorderWidth() {
     return "borderWidth: " + this.borderWidth.toString() + ",";
   }

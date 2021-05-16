@@ -30,6 +30,21 @@ class DataSet {
     valuePairList.forEach((element) => {data.addPair(element)});
   }
 
+  void alterSet(
+      {String newLabel = "",
+      List<int> newColour = defaultColour,
+      double newTransparency = 0.8}) {
+    if (newLabel != "") {
+      this.label = newLabel;
+    }
+    if (newColour != defaultColour) {
+      this.mainColour = newColour;
+    }
+    if (newTransparency != 0.8) {
+      this.transparency = newTransparency;
+    }
+  }
+
   void setColour(List<int> colour) {
     this.mainColour = colour;
   }
