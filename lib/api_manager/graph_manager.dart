@@ -2,16 +2,24 @@ import 'dart:async';
 
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/graph_factory.dart';
+import 'package:english_words/english_words.dart';
 
 class GraphManager {
   late Graph graph;
 
   GraphManager() {
-    createGraph();
+    createGraph("");
   }
 
-  void createGraph() {
-    graph = new GraphFactory("My First Bar")
+  String randTitle() {
+    return WordPair.random().join(" ").toUpperCase();
+  }
+
+  void createGraph(String title) {
+    if (title.isEmpty) {
+      title = randTitle();
+    }
+    graph = new GraphFactory(title)
         .defaultDataSetLine()
         .defaultLabels()
         .defaultScales()
