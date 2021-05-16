@@ -1,11 +1,12 @@
+import 'package:graph_swipe/api_manager/random/random_bar_helper.dart';
+import 'package:graph_swipe/api_manager/random/random_line_helper.dart';
 import 'package:graph_swipe/api_manager/random/random_string.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/graph_factory.dart';
-
-import 'dart:math';
-
 import 'package:graph_swipe/graphs/types/bar_graph.dart';
 import 'package:graph_swipe/graphs/types/line_graph.dart';
+
+import 'dart:math';
 
 class RandomFactory {
   Random rand = Random();
@@ -23,28 +24,6 @@ class RandomFactory {
     return gf;
   }
 
-  BarGraph _randomBarGraph(GraphFactory gf) {
-    return gf.makeBar();
-  }
-
-  LineGraph _randomLineGraph(GraphFactory gf) {
-    return gf.makeLine();
-  }
-
-  BarGraph _randomBorderColour(BarGraph graph) {
-    if (rand.nextDouble() < 0.1) {
-      graph.randomBorderColour();
-    }
-    return graph;
-  }
-
-  BarGraph _roundedBars(BarGraph graph) {
-    if (rand.nextDouble() < 0.3) {
-      graph.options.roundedBars = true;
-    }
-    return graph;
-  }
-
   GraphFactory _dataPairs(GraphFactory gf) {
     if (rand.nextDouble() < 0.2) {
       gf.removeDataSets().randomDataPairs().randomColours();
@@ -55,12 +34,12 @@ class RandomFactory {
   Graph _chooseGraph(GraphFactory gf) {
     if (rand.nextBool()) {
       _dataPairs(gf);
-      BarGraph aBar = _randomBarGraph(gf);
-      _randomBorderColour(aBar);
-      _roundedBars(aBar);
+      BarGraph aBar = RandomBarHelper.randomBarGraph(rand, gf);
+      RandomBarHelper.randomBorderColour(rand, aBar);
+      RandomBarHelper.roundedBars(rand, aBar);
       return aBar;
     } else {
-      LineGraph aLine = _randomLineGraph(gf);
+      LineGraph aLine = RandomLineHelper.randomLineGraph(gf);
       return aLine;
     }
   }
