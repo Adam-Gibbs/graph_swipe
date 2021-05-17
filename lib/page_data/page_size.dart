@@ -12,11 +12,15 @@ class PageSize {
   }
 
   // TODO: Height as one func
-  static double getThreeQuarterHeight(BuildContext context) {
-    return _getHeight(context) * 0.8;
+  static double getCardHeight(BuildContext context) {
+    return _getHeight(context) - 138;
   }
 
   static double getThirdHeight(BuildContext context) {
     return _getHeight(context) * 0.3;
+  }
+
+  static double getHalfHeight(BuildContext context) {
+    return _getHeight(context) * 0.5;
   }
 }

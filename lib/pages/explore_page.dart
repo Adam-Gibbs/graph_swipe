@@ -23,8 +23,8 @@ class _ExplorePageState extends State<ExplorePage> {
       _swipeItems.add(SwipeItem(
           content: Content(
             graphData: graphManager.getGraphData(),
-            image: graphManager.getGraphImage(PageSize.getWidth(context),
-                PageSize.getThreeQuarterHeight(context)),
+            image: graphManager.getGraphImage(
+                PageSize.getWidth(context), PageSize.getCardHeight(context)),
           ),
           likeAction: () {
             // TODO: trigger save, take content.graphData to save
@@ -64,7 +64,7 @@ class _ExplorePageState extends State<ExplorePage> {
         body: Container(
             child: Column(children: [
           Container(
-            height: PageSize.getThreeQuarterHeight(context),
+            height: PageSize.getCardHeight(context),
             width: PageSize.getWidth(context),
             child: SwipeCards(
               matchEngine: _matchEngine,
