@@ -8,9 +8,7 @@ void main() => runApp(MainApp());
 
 class MainApp extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _MainAppState();
-  }
+  _MainAppState createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> {
@@ -20,7 +18,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TITLE',
+      title: 'Graph Swiper',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
