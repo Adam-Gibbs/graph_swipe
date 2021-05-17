@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graph_swipe/api_manager/graph_manager.dart';
+import 'package:graph_swipe/page_data/page_size.dart';
 import 'package:graph_swipe/page_data/swipe_card_content.dart';
 import 'package:graph_swipe/pages/customise_page.dart';
 import 'package:swipe_cards/swipe_cards.dart';
@@ -16,25 +17,14 @@ class _ExplorePageState extends State<ExplorePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   GraphManager graphManager = new GraphManager();
 
-  double _getWidth(BuildContext context) {
-    return MediaQuery.of(context).size.width;
-  }
-
-  double _getThreeQuarterHeight(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-    final EdgeInsets padding = MediaQuery.of(context).padding;
-    var fullHeight = height - padding.top - padding.bottom;
-    return fullHeight * 0.8;
-  }
-
   void addSwipeItems(int quantity) {
     for (int i = 0; i < quantity; i++) {
       graphManager.createGraph("");
       _swipeItems.add(SwipeItem(
           content: Content(
             graphData: graphManager.getGraphData(),
-            image: graphManager.getGraphImage(
-                _getWidth(context), _getThreeQuarterHeight(context)),
+            image: graphManager.getGraphImage(PageSize.getWidth(context),
+                PageSize.getThreeQuarterHeight(context)),
           ),
           likeAction: () {
             // TODO: trigger save, take content.graphData to save
@@ -68,8 +58,8 @@ class _ExplorePageState extends State<ExplorePage> {
         body: Container(
             child: Column(children: [
           Container(
-            height: _getThreeQuarterHeight(context),
-            width: _getWidth(context),
+            height: PageSize.getThreeQuarterHeight(context),
+            width: PageSize.getWidth(context),
             child: SwipeCards(
               matchEngine: _matchEngine,
               itemBuilder: (BuildContext context, int index) {
