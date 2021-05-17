@@ -10,6 +10,7 @@ class DataSetLine extends DataSet {
   late String pointStyle;
   late int pointRadius;
   late String yAxis;
+  late String xAxis;
 
   DataSetLine(String label,
       {List<int> colour = DataSet.defaultColour,
@@ -22,7 +23,8 @@ class DataSetLine extends DataSet {
       bool showLine = true,
       String pointStyle = 'circle',
       int pointRadius = 3,
-      String yAxis = "y"})
+      String yAxis = "y",
+      String xAxis = "x"})
       : super(label, colour: colour, transparency: transparency) {
     this.lineColour = checkLineColour(lineColour, colour);
     this.fill = fill;
@@ -33,6 +35,7 @@ class DataSetLine extends DataSet {
     this.pointStyle = pointStyle;
     this.pointRadius = pointRadius;
     this.yAxis = yAxis;
+    this.xAxis = xAxis;
   }
 
   @override
@@ -48,7 +51,8 @@ class DataSetLine extends DataSet {
       bool newShowLine = true,
       String newPointStyle = 'circle',
       int newPointRadius = 3,
-      String newYAxis = "y"}) {
+      String newYAxis = "y",
+      String newXAxis = "x"}) {
     if (newLabel != "") {
       this.label = newLabel;
     }
@@ -84,6 +88,9 @@ class DataSetLine extends DataSet {
     }
     if (newYAxis != "y") {
       this.yAxis = newYAxis;
+    }
+    if (newXAxis != "x") {
+      this.xAxis = newXAxis;
     }
   }
 
@@ -135,6 +142,10 @@ class DataSetLine extends DataSet {
     return "yAxisID: '" + this.yAxis + "',";
   }
 
+  String _showXAxis() {
+    return "xAxisID: '" + this.xAxis + "',";
+  }
+
   @override
   String showDataSet() {
     this.lineColour = checkLineColour(this.lineColour, this.mainColour);
@@ -151,6 +162,7 @@ class DataSetLine extends DataSet {
         _showPointStyle() +
         _showPointRadius() +
         _showYAxis() +
+        _showXAxis() +
         showData() +
         "},";
   }

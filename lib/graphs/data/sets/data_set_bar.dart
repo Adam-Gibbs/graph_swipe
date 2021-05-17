@@ -4,13 +4,15 @@ class DataSetBar extends DataSet {
   List<int> borderColour = [];
   late int borderWidth;
   late String yAxis;
+  late String xAxis;
 
   DataSetBar(String label,
       {List<int> colour = DataSet.defaultColour,
       double transparency = 0.8,
       List<int> borderColour = DataSet.defaultColour,
       int borderWidth = 2,
-      String yAxis = "y"})
+      String yAxis = "y",
+      String xAxis = "x"})
       : super(label, colour: colour, transparency: transparency) {
     if (borderColour == DataSet.defaultColour) {
       this.borderColour = colour;
@@ -19,6 +21,7 @@ class DataSetBar extends DataSet {
     }
     this.borderWidth = borderWidth;
     this.yAxis = yAxis;
+    this.xAxis = xAxis;
   }
 
   @override
@@ -28,7 +31,8 @@ class DataSetBar extends DataSet {
       double newTransparency = 0.8,
       List<int> newBorderColour = DataSet.defaultColour,
       int newBorderWidth = 2,
-      String newYAxis = "y"}) {
+      String newYAxis = "y",
+      String newXAxis = "x"}) {
     if (newLabel != "") {
       this.label = newLabel;
     }
@@ -47,6 +51,9 @@ class DataSetBar extends DataSet {
     if (newYAxis != "y") {
       this.yAxis = newYAxis;
     }
+    if (newXAxis != "x") {
+      this.xAxis = newXAxis;
+    }
   }
 
   String _showBorderWidth() {
@@ -57,6 +64,10 @@ class DataSetBar extends DataSet {
     return "yAxisID: '" + this.yAxis + "',";
   }
 
+  String _showXAxis() {
+    return "xAxisID: '" + this.xAxis + "',";
+  }
+
   @override
   String showDataSet() {
     return "{" +
@@ -65,6 +76,7 @@ class DataSetBar extends DataSet {
         showColour("borderColor", this.borderColour, 1) +
         _showBorderWidth() +
         _showYAxis() +
+        _showXAxis() +
         showData() +
         "},";
   }
