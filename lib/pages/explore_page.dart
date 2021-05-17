@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graph_swipe/api_manager/graph_manager.dart';
-import 'package:graph_swipe/pages/content.dart';
+import 'package:graph_swipe/page_data/swipe_card_content.dart';
+import 'package:graph_swipe/pages/customise_page.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -32,8 +33,8 @@ class _ExplorePageState extends State<ExplorePage> {
       _swipeItems.add(SwipeItem(
           content: Content(
             graphData: graphManager.getGraphData(),
-            image: graphManager.getGraphImage(_getWidth(context).toString(),
-                _getThreeQuarterHeight(context).toString()),
+            image: graphManager.getGraphImage(
+                _getWidth(context), _getThreeQuarterHeight(context)),
           ),
           likeAction: () {
             // TODO: trigger save, take content.graphData to save

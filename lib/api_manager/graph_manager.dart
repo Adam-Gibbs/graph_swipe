@@ -8,8 +8,8 @@ class GraphManager {
   RandomFactory maker = new RandomFactory();
   Random rand = Random();
 
-  GraphManager() {
-    createGraph("");
+  void setGraph(Graph graph) {
+    this.graph = graph;
   }
 
   void createGraph(String title) {
@@ -24,12 +24,12 @@ class GraphManager {
     return graph;
   }
 
-  String getGraphImage(String width, String height) {
+  String getGraphImage(double width, double height) {
     return "https://quickchart.io/chart?c=" +
         _getGraphString() +
         "&width=" +
-        width +
+        width.toString() +
         "&height=" +
-        height;
+        height.toString();
   }
 }

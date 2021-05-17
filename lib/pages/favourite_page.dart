@@ -4,12 +4,10 @@ import 'package:graph_swipe/api_manager/graph_manager.dart';
 
 class FavouritePage extends StatefulWidget {
   @override
-  FavouritePageState createState() {
-    return FavouritePageState();
-  }
+  _FavouritePageState createState() => _FavouritePageState();
 }
 
-class FavouritePageState extends State<FavouritePage> {
+class _FavouritePageState extends State<FavouritePage> {
   TextEditingController editingController = TextEditingController();
   List<WordPair> items = [];
   List<WordPair> _suggestions = <WordPair>[];
@@ -69,7 +67,7 @@ class FavouritePageState extends State<FavouritePage> {
       leading: FadeInImage(
         placeholder:
             AssetImage('res/circular_progress_indicator_selective.gif'),
-        image: NetworkImage(graphManager.getGraphImage("250", "150")),
+        image: NetworkImage(graphManager.getGraphImage(600, 300)),
       ),
     );
   }
