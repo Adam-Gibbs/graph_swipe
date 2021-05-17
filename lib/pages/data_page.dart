@@ -6,11 +6,14 @@ import 'package:graph_swipe/page_data/form/form_step_blocs.dart';
 
 class DataPage extends StatefulWidget {
   @override
-  _DataPageState createState() => _DataPageState();
+  DataPageState createState() => DataPageState();
 }
 
-class _DataPageState extends State<DataPage> {
+class DataPageState extends State<DataPage> {
   var _type = StepperType.vertical;
+  Color currentColor = Colors.blue;
+
+  void changeColor(Color colour) => setState(() => currentColor = colour);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,10 @@ class _DataPageState extends State<DataPage> {
                     type: _type,
                     physics: ClampingScrollPhysics(),
                     stepsBuilder: (formBloc) {
-                      return [FormStepBlocs.generalStep(formBloc!)];
+                      return [
+                        FormStepBlocs.generalStep(formBloc!),
+                        FormStepBlocs.dataSetsStep(formBloc, this)
+                      ];
                     },
                   ),
                 ),
