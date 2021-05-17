@@ -40,6 +40,12 @@ class _ExplorePageState extends State<ExplorePage> {
             // TODO: launch customise menu, take content.graphData to use
             _swipeIndex++;
             print("custom");
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      CusomisePage(_swipeItems[_swipeIndex].content.graphData)),
+            );
           }));
     }
   }
