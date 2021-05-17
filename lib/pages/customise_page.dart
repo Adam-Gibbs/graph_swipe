@@ -4,7 +4,7 @@ import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/page_data/page_size.dart';
 
 class CusomisePage extends StatelessWidget {
-  late GraphManager currentGraph = new GraphManager();
+  final GraphManager currentGraph = new GraphManager();
 
   CusomisePage(Graph newGraph) {
     this.currentGraph.setGraph(newGraph);
@@ -12,7 +12,6 @@ class CusomisePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String url = currentGraph.getGraphImage(200, 200);
     return Scaffold(
       appBar: AppBar(
         title: Text("Customise Graph"),
