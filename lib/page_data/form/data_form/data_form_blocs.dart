@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:graph_swipe/page_data/form/data_form/data_form_fields.dart';
-import 'package:graph_swipe/page_data/form/form_fields.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:graph_swipe/page_data/page_size.dart';
 import 'package:graph_swipe/pages/data_page.dart';

@@ -39,12 +39,10 @@ class _ExplorePageState extends State<ExplorePage> {
             print("like");
           },
           nopeAction: () {
-            // TODO: probs nothing here
             _swipeIndex++;
             print("dislike");
           },
           superlikeAction: () {
-            // TODO: launch customise menu, take content.graphData to use
             _swipeIndex++;
             print("custom");
             Navigator.push(
