@@ -23,7 +23,6 @@ class DiskSave {
     if (favouriteGraphsMap.length > 0) {
       final FavouriteGraphs favouriteGraphs =
           FavouriteGraphs.fromJson(favouriteGraphsMap);
-      print(favouriteGraphs);
       return favouriteGraphs;
     }
     return new FavouriteGraphs();

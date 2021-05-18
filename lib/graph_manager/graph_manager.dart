@@ -10,8 +10,9 @@ class GraphManager {
   RandomFactory maker = new RandomFactory();
   Random rand = Random();
 
-  void setGraph(Graph graph) {
+  GraphManager setGraph(Graph graph) {
     this.graph = graph;
+    return this;
   }
 
   void createGraph({required SavedFormData savedFormData}) {

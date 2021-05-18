@@ -1,4 +1,5 @@
 import 'package:graph_swipe/graphs/graph.dart';
+import 'package:graph_swipe/page_data/disk_save.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'favourite_graphs.g.dart';
@@ -15,10 +16,17 @@ class FavouriteGraphs {
 
   void addAll(List<Graph> graphs) {
     this.graphs.addAll(graphs);
+    DiskSave.saveToDisk(this);
   }
 
   void favourite(Graph graph) {
     this.graphs.add(graph);
+    DiskSave.saveToDisk(this);
+  }
+
+  void unFavourite(Graph graph) {
+    this.graphs.remove(graph);
+    DiskSave.saveToDisk(this);
   }
 
   void clear() {

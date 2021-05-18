@@ -1,9 +1,14 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graph_swipe/graph_manager/graph_manager.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/page_data/favourite_graphs.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:graph_swipe/page_data/page_size.dart';
 
 class FavouritePage extends StatefulWidget {
   final FavouriteGraphs favouriteGraphs;
@@ -79,13 +84,15 @@ class _FavouritePageState extends State<FavouritePage> {
           ])));
   }
 
-  Widget alertButton(String text) {
+  Widget alertButton(String text, Graph graph, BuildContext context,
+      {Function? doPress}) {
     return TextButton(
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.blue),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(9.0))))),
       onPressed: () {
+        doPress!(graph);
         Navigator.of(context).pop();
       },
       child: Row(
@@ -98,6 +105,24 @@ class _FavouritePageState extends State<FavouritePage> {
         ],
       ),
     );
+  }
+
+  void _deleteGraph(Graph graph) {
+    favouriteGraphs.unFavourite(graph);
+  }
+
+  void _shareImage(Graph graph) async {
+    try {
+      GraphManager shareGraph = new GraphManager().setGraph(graph);
+      var request = await HttpClient().getUrl(Uri.parse(
+          shareGraph.getGraphImage(
+              PageSize.getWidth(context), PageSize.getHeight(context))));
+      var response = await request.close();
+      Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+      await Share.file('ESYS AMLOG', 'amlog.jpg', bytes, 'image/png');
+    } catch (e) {
+      print('error: $e');
+    }
   }
 
   void showAlert(Graph graph) {
@@ -129,10 +154,11 @@ class _FavouritePageState extends State<FavouritePage> {
                       graph.options.title,
                       style: TextStyle(fontSize: 20, color: Colors.black),
                     )),
-                    alertButton("Share"),
-                    alertButton("Delete"),
-                    alertButton("Customise"),
-                    alertButton("Close"),
+                    alertButton("Share", graph, context, doPress: _shareImage),
+                    alertButton("Delete", graph, context,
+                        doPress: _deleteGraph),
+                    alertButton("Customise", graph, context),
+                    alertButton("Close", graph, context),
                   ],
                 ),
               ));
