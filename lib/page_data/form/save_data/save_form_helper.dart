@@ -9,11 +9,11 @@ class SaveFormHelper {
     savedFormData.graphName = name;
   }
 
-  void saveXAxes(String? label, bool? labelDisplay, bool? displayXAxes,
+  void saveXAxes(String? label, bool? labelDisplay, bool? displayAxes,
       String? axesPosition, String? values) {
     savedFormData.savedXAxes.label = label;
     savedFormData.savedXAxes.displayLabel = labelDisplay;
-    savedFormData.savedXAxes.display = displayXAxes;
+    savedFormData.savedXAxes.display = displayAxes;
     savedFormData.savedXAxes.position = axesPosition?.toLowerCase();
     String tempString = values ?? "";
     // Remove chars
@@ -27,5 +27,15 @@ class SaveFormHelper {
         tempStringList.length == 0 ? null : tempStringList;
 
     savedFormData.hasXAxes = true;
+  }
+
+  void saveYAxes(String? label, bool? labelDisplay, bool? displayAxes,
+      String? axesPosition) {
+    savedFormData.savedYAxes.label = label;
+    savedFormData.savedYAxes.displayLabel = labelDisplay;
+    savedFormData.savedYAxes.display = displayAxes;
+    savedFormData.savedYAxes.position = axesPosition?.toLowerCase();
+
+    savedFormData.hasYAxes = true;
   }
 }

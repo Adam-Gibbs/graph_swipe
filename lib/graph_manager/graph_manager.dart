@@ -15,19 +15,25 @@ class GraphManager {
   }
 
   void createGraph({required SavedFormData savedFormData}) {
+    graph = maker.randomGraph(savedFormData.graphName);
     if (savedFormData.hasXAxes) {
       createGraphWithXAxis(savedFormData: savedFormData);
-    } else {
-      graph = maker.randomGraph(savedFormData.graphName);
+    }
+    if (savedFormData.hasYAxes) {
+      createGraphWithYAxis(savedFormData: savedFormData);
     }
   }
 
   void createGraphWithXAxis(
       {String? title, required SavedFormData savedFormData}) {
-    graph = maker.randomGraph(title);
     graph.options.scales.setXAxis(savedXAxes: savedFormData.savedXAxes);
     // If saved values null, keep random ones
     graph.xLabels = savedFormData.xAxisValues ?? graph.xLabels;
+  }
+
+  void createGraphWithYAxis(
+      {String? title, required SavedFormData savedFormData}) {
+    graph.options.scales.setYAxis(savedYAxes: savedFormData.savedYAxes);
   }
 
   String _getGraphString() {

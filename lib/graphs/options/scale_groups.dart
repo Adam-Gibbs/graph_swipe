@@ -1,6 +1,6 @@
 import 'package:graph_swipe/graph_manager/random/random_string.dart';
 import 'package:graph_swipe/graphs/options/scale.dart';
-import 'package:graph_swipe/page_data/form/save_data/saved%20_x_axes.dart';
+import 'package:graph_swipe/page_data/form/save_data/saved%20_axes.dart';
 
 class ScaleGroups {
   List<Scale> xScales = [];
@@ -51,12 +51,21 @@ class ScaleGroups {
     yScales.forEach((element) => {element.stacked = true});
   }
 
-  void setXAxis({required SavedXAxes savedXAxes}) {
+  void setXAxis({required SavedAxes savedXAxes}) {
     xScales.forEach((element) {
       element.label = savedXAxes.label ?? RandomString.randWord();
       element.displayLabel = savedXAxes.displayLabel ?? false;
       element.display = savedXAxes.display ?? true;
       element.position = savedXAxes.position ?? "bottom";
+    });
+  }
+
+  void setYAxis({required SavedAxes savedYAxes}) {
+    yScales.forEach((element) {
+      element.label = savedYAxes.label ?? RandomString.randWord();
+      element.displayLabel = savedYAxes.displayLabel ?? false;
+      element.display = savedYAxes.display ?? true;
+      element.position = savedYAxes.position ?? "bottom";
     });
   }
 

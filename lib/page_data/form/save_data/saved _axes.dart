@@ -1,4 +1,4 @@
-class SavedXAxes {
+class SavedAxes {
   String? position;
   String? label;
   bool? displayLabel;
