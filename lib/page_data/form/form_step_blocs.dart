@@ -172,7 +172,7 @@ class FormStepBlocs {
                     booleanFieldBloc: wizardFormBloc.yAxesDisplayAxes,
                     body: Container(
                       alignment: Alignment.centerLeft,
-                      child: Text('Display X Axes'),
+                      child: Text('Display Y Axes'),
                     ),
                   ),
                   DropdownFieldBlocBuilder<String>(

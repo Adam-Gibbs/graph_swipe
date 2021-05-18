@@ -1,7 +1,23 @@
+import 'package:flutter/material.dart';
+import 'package:graph_swipe/page_data/form/save_data/saved_data_sets.dart';
 import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 
 class SaveFormHelper {
   final SavedFormData savedFormData;
+  static const List<String> ACCEPTABLECHARS = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    ".",
+    "-"
+  ];
 
   SaveFormHelper(this.savedFormData);
 
@@ -15,6 +31,7 @@ class SaveFormHelper {
     savedFormData.savedXAxes.displayLabel = labelDisplay;
     savedFormData.savedXAxes.display = displayAxes;
     savedFormData.savedXAxes.position = axesPosition?.toLowerCase();
+
     String tempString = values ?? "";
     // Remove chars
     // tempString.replaceAll(
@@ -27,6 +44,42 @@ class SaveFormHelper {
         tempStringList.length == 0 ? null : tempStringList;
 
     savedFormData.hasXAxes = true;
+  }
+
+  void saveDataSet(
+      String? name, String? data, bool? chooseColour, Color? colour) {
+    SavedDataSet savedDataSet = new SavedDataSet();
+    savedDataSet.name = name;
+    // if colour value is null, save black
+    savedDataSet.colour = [
+      colour?.red ?? 255,
+      colour?.green ?? 255,
+      colour?.blue ?? 255
+    ];
+    savedDataSet.tansparency = colour?.opacity;
+
+    String tempString = data ?? "";
+    List<double> tempDoubleList = [];
+    List<String> tempStringList = tempString.split(",");
+    // Remove all non digits from string
+    // TODO: This is very inefficit and ugly, look into regex
+    tempStringList.forEach((element) {
+      element.characters.forEach((char) {
+        if (!ACCEPTABLECHARS.contains(char)) {
+          char = "";
+        }
+      });
+      try {
+        tempDoubleList.add(double.parse(element));
+      } catch (FormatException) {
+        print("Following is not a number: " + element);
+      }
+    });
+    // If temp list empty, just make null and deal with later
+    savedDataSet.data = tempDoubleList.length == 0 ? null : tempDoubleList;
+
+    savedFormData.savedDataSets.add(savedDataSet);
+    savedFormData.hasDataSets = true;
   }
 
   void saveYAxes(String? label, bool? labelDisplay, bool? displayAxes,

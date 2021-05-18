@@ -1,16 +1,16 @@
 import 'package:graph_swipe/graphs/data/data_list.dart';
 
 class DataSet {
-  DataList data = new DataList();
   static const List<int> defaultColour = [0, 0, 0];
+  DataList data = new DataList();
   late String label;
   late List<int> mainColour;
   late double transparency;
 
   DataSet(String label,
       {List<int> colour = defaultColour, double transparency = 0.8}) {
-    this.label = label;
     this.mainColour = colour;
+    this.label = label;
     this.transparency = transparency;
   }
 
@@ -26,8 +26,9 @@ class DataSet {
     data.addPair(valueList);
   }
 
-  void setData(List<double> valueList) {
+  DataSet setData(List<double> valueList) {
     valueList.forEach((element) => {this.data.add(element)});
+    return this;
   }
 
   void setDataPairs(List<List<double>> valuePairList) {

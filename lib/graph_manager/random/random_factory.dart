@@ -8,14 +8,20 @@ import 'package:graph_swipe/graphs/types/line_graph.dart';
 
 import 'dart:math';
 
+import 'package:graph_swipe/page_data/form/save_data/saved_data_sets.dart';
+
 class RandomFactory {
   Random rand = Random();
 
-  GraphFactory _setColumns(GraphFactory gf) {
-    return gf.setColumns(rand.nextInt(7) + 3);
+  List<int> randomColour() {
+    return ([rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)]);
   }
 
-  GraphFactory _addDataSets(GraphFactory gf) {
+  GraphFactory _setColumns(GraphFactory gf, {int? value}) {
+    return gf.setColumns(value ?? rand.nextInt(7) + 3);
+  }
+
+  GraphFactory _addRandomDataSets(GraphFactory gf) {
     int loops = rand.nextInt(4) + 1;
     for (int i = 0; i < loops; i++) {
       gf.randomDataSet();
@@ -23,16 +29,29 @@ class RandomFactory {
     return gf;
   }
 
+  GraphFactory _addDataSets(GraphFactory gf, List<SavedDataSet> savedDataSets) {
+    savedDataSets.forEach((element) {
+      List<int> dataColour = element.colour ?? randomColour();
+      gf.addDataSet(
+          element.name ?? RandomString.randWord(), element.data ?? [0, 0, 0],
+          colour: (element.chooseColour ?? false) ? dataColour : randomColour(),
+          transparency: element.tansparency ?? 0.8);
+    });
+    return gf;
+  }
+
   GraphFactory _dataPairs(GraphFactory gf) {
     if (rand.nextDouble() < 0.2) {
-      gf.removeDataSets().randomDataPairs().randomColours();
+      gf.removeDataSets().randomDataPairs().allRandomColours();
     }
     return gf;
   }
 
-  Graph _chooseGraph(GraphFactory gf) {
+  Graph _chooseGraph(GraphFactory gf, {bool canPairs = true}) {
     if (rand.nextBool()) {
-      _dataPairs(gf);
+      if (canPairs) {
+        _dataPairs(gf);
+      }
       BarGraph aBar = RandomBarHelper.randomBarGraph(rand, gf);
       RandomBarHelper.randomBorderColour(rand, aBar);
       RandomBarHelper.roundedBars(rand, aBar);
@@ -85,12 +104,28 @@ class RandomFactory {
         new GraphFactory(title ?? RandomString.randTitle());
 
     _setColumns(graphFactory);
-    _addDataSets(graphFactory);
-    graphFactory.randomColours().randomLabels().defaultScales();
+    _addRandomDataSets(graphFactory);
+    graphFactory.allRandomColours().randomLabels().defaultScales();
     Graph newGraph = _chooseGraph(graphFactory);
     _randomStacked(newGraph);
     _randomLables(newGraph);
     _randomAxesLables(newGraph);
     return _randTwoAxes(newGraph);
+  }
+
+  Graph randomGraphWithDataSets(String? title,
+      {required List<SavedDataSet> savedDataSets}) {
+    // if title is null (??), generate one randomly
+    GraphFactory graphFactory =
+        new GraphFactory(title ?? RandomString.randTitle());
+
+    _setColumns(graphFactory, value: savedDataSets.first.data?.length);
+    _addDataSets(graphFactory, savedDataSets);
+    graphFactory.randomLabels().defaultScales();
+    Graph newGraph = _chooseGraph(graphFactory, canPairs: false);
+    _randomStacked(newGraph);
+    _randomLables(newGraph);
+    _randomAxesLables(newGraph);
+    return newGraph;
   }
 }

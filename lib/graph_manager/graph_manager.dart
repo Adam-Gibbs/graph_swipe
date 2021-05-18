@@ -1,3 +1,5 @@
+import 'package:graph_swipe/graph_manager/random/random_string.dart';
+import 'package:graph_swipe/graphs/data/sets/data_set.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graph_manager/random/random_factory.dart';
 
@@ -15,24 +17,28 @@ class GraphManager {
   }
 
   void createGraph({required SavedFormData savedFormData}) {
-    graph = maker.randomGraph(savedFormData.graphName);
+    if (savedFormData.hasDataSets) {
+      graph = maker.randomGraphWithDataSets(savedFormData.graphName,
+          savedDataSets: savedFormData.savedDataSets);
+    } else {
+      graph = maker.randomGraph(savedFormData.graphName);
+    }
+
     if (savedFormData.hasXAxes) {
-      createGraphWithXAxis(savedFormData: savedFormData);
+      setGraphXAxis(savedFormData: savedFormData);
     }
     if (savedFormData.hasYAxes) {
-      createGraphWithYAxis(savedFormData: savedFormData);
+      setGraphYAxis(savedFormData: savedFormData);
     }
   }
 
-  void createGraphWithXAxis(
-      {String? title, required SavedFormData savedFormData}) {
+  void setGraphXAxis({required SavedFormData savedFormData}) {
     graph.options.scales.setXAxis(savedXAxes: savedFormData.savedXAxes);
     // If saved values null, keep random ones
     graph.xLabels = savedFormData.xAxisValues ?? graph.xLabels;
   }
 
-  void createGraphWithYAxis(
-      {String? title, required SavedFormData savedFormData}) {
+  void setGraphYAxis({required SavedFormData savedFormData}) {
     graph.options.scales.setYAxis(savedYAxes: savedFormData.savedYAxes);
   }
 

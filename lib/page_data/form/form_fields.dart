@@ -224,6 +224,13 @@ class FormFields extends FormBloc<String, String> {
           xAxesDisplayAxes.value, xAxesPosition.value, xAxesValues.value);
     }
 
+    if (state.currentStep == 2) {
+      dataSets.value.forEach((element) => {
+            saveFormHelper.saveDataSet(element.dataSetName.value,
+                element.data.value, element.chooseColour.value, element.colour)
+          });
+    }
+
     if (state.currentStep == 3) {
       saveFormHelper.saveYAxes(yAxesLabel.value, yAxesDisplayLabel.value,
           yAxesDisplayAxes.value, yAxesPosition.value);

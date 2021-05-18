@@ -31,8 +31,10 @@ class GraphFactory {
     return this;
   }
 
-  GraphFactory addDataSet(String title, List<double> valueList) {
-    DataSet newData = new DataSet(title);
+  GraphFactory addDataSet(String title, List<double> valueList,
+      {List<int>? colour, double transparency = 0.8}) {
+    DataSet newData = new DataSet(title,
+        colour: colour ?? DataSet.defaultColour, transparency: transparency);
     newData.setData(valueList);
     dataSets.add(newData);
     return this;
@@ -71,7 +73,7 @@ class GraphFactory {
     return this;
   }
 
-  GraphFactory randomColours() {
+  GraphFactory allRandomColours() {
     dataSets.forEach((element) => {
           element.setColour(
               [rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)])
