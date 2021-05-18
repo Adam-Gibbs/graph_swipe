@@ -49,6 +49,23 @@ class BarGraph extends Graph {
     return this;
   }
 
+  BarGraph setAllBorderColour(List<int> colour, double transparency) {
+    _dataSets.forEach((element) {
+      element.borderColour = colour;
+      element.transparency = transparency;
+    });
+    _saveDataSets();
+    return this;
+  }
+
+  BarGraph setAllBorderThickness(int thickness) {
+    _dataSets.forEach((element) {
+      element.borderWidth = thickness;
+    });
+    _saveDataSets();
+    return this;
+  }
+
   BarGraph addBarDataSets(List<DataSetBar> dataSets) {
     this._dataSets = dataSets;
     this.dataSets = dataSets;

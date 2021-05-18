@@ -17,7 +17,13 @@ class GraphManager {
   }
 
   void createGraph({required SavedFormData savedFormData}) {
-    if (savedFormData.hasDataSets) {
+    if (savedFormData.hasType) {
+      if (savedFormData.savedTypeData.type == "bar") {
+        graph = maker.barWithDataSets(savedFormData: savedFormData);
+      } else if (savedFormData.savedTypeData.type == "line") {
+        graph = maker.lineWithDataSets(savedFormData: savedFormData);
+      }
+    } else if (savedFormData.hasDataSets) {
       graph = maker.randomGraphWithDataSets(savedFormData.graphName,
           savedDataSets: savedFormData.savedDataSets);
     } else {

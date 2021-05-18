@@ -1,5 +1,6 @@
 import 'package:graph_swipe/page_data/form/save_data/saved%20_axes.dart';
 import 'package:graph_swipe/page_data/form/save_data/saved_data_sets.dart';
+import 'package:graph_swipe/page_data/form/save_data/saved_type_data.dart';
 
 class SavedFormData {
   // General
@@ -17,4 +18,8 @@ class SavedFormData {
   // Y Axis
   bool hasYAxes = false;
   final SavedAxes savedYAxes = new SavedAxes();
+
+  // Type
+  bool hasType = false;
+  final SavedTypeData savedTypeData = new SavedTypeData();
 }

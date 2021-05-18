@@ -4,7 +4,7 @@ import 'package:graph_swipe/graphs/graph_factory.dart';
 import 'package:graph_swipe/graphs/types/bar_graph.dart';
 
 class RandomBarHelper {
-  static BarGraph randomBarGraph(Random rand, GraphFactory gf) {
+  static BarGraph barGraph(GraphFactory gf) {
     return gf.makeBar();
   }
 

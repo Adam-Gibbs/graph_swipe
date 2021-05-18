@@ -9,6 +9,7 @@ import 'package:graph_swipe/graphs/types/line_graph.dart';
 import 'dart:math';
 
 import 'package:graph_swipe/page_data/form/save_data/saved_data_sets.dart';
+import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 
 class RandomFactory {
   Random rand = Random();
@@ -52,12 +53,12 @@ class RandomFactory {
       if (canPairs) {
         _dataPairs(gf);
       }
-      BarGraph aBar = RandomBarHelper.randomBarGraph(rand, gf);
+      BarGraph aBar = RandomBarHelper.barGraph(gf);
       RandomBarHelper.randomBorderColour(rand, aBar);
       RandomBarHelper.roundedBars(rand, aBar);
       return aBar;
     } else {
-      LineGraph aLine = RandomLineHelper.randomLineGraph(gf);
+      LineGraph aLine = RandomLineHelper.lineGraph(gf);
       RandomLineHelper.randomLineColour(rand, aLine);
       RandomLineHelper.randomLineStepped(rand, aLine);
       RandomLineHelper.randomLineDashed(rand, aLine);
@@ -127,5 +128,76 @@ class RandomFactory {
     _randomLables(newGraph);
     _randomAxesLables(newGraph);
     return newGraph;
+  }
+
+  Graph barWithDataSets({required SavedFormData savedFormData}) {
+    // if title is null (??), generate one randomly
+    GraphFactory graphFactory =
+        new GraphFactory(savedFormData.graphName ?? RandomString.randTitle());
+
+    _addDataSets(graphFactory, savedFormData.savedDataSets);
+    graphFactory.defaultScales();
+
+    BarGraph aBar = RandomBarHelper.barGraph(graphFactory);
+    if (savedFormData.savedTypeData.isBorderColour!) {
+      aBar.setAllBorderColour(
+          savedFormData.savedTypeData.borderColour ?? [255, 255, 255],
+          savedFormData.savedTypeData.borderTransparency ?? 1.0);
+    }
+    if (savedFormData.savedTypeData.boldBorders!) {
+      aBar.setAllBorderThickness(4);
+    }
+    aBar.options.roundedBars = savedFormData.savedTypeData.roundBars ?? false;
+
+    _randomLables(aBar);
+    return aBar;
+  }
+
+  Graph lineWithDataSets({required SavedFormData savedFormData}) {
+    // if title is null (??), generate one randomly
+    GraphFactory graphFactory =
+        new GraphFactory(savedFormData.graphName ?? RandomString.randTitle());
+
+    _addDataSets(graphFactory, savedFormData.savedDataSets);
+    graphFactory.defaultScales();
+    LineGraph aLine = RandomLineHelper.lineGraph(graphFactory);
+
+    List<Function> toRunRandom = [];
+    for (int i = 0; i < aLine.dataSets.length; i++) {
+      if (!savedFormData.savedTypeData.displayLines!) {
+        aLine.makeNoLine(i);
+      } else {
+        if (savedFormData.savedTypeData.fill!) {
+          aLine.makeFilled(i);
+        } else {
+          toRunRandom.add(RandomLineHelper.randomLineFilled);
+        }
+        if (savedFormData.savedTypeData.lineStyle == "Random") {
+          toRunRandom.add(RandomLineHelper.randomLineDashed);
+        } else if (savedFormData.savedTypeData.lineStyle == "Dashed") {
+          aLine.makeDashed(i);
+        }
+        if (savedFormData.savedTypeData.pointToPoint == "Random") {
+          toRunRandom.add(RandomLineHelper.randomLineCurved);
+          toRunRandom.add(RandomLineHelper.randomLineStepped);
+        } else if (savedFormData.savedTypeData.lineStyle == "Curved") {
+          aLine.makeCurved(i);
+        } else if (savedFormData.savedTypeData.lineStyle == "Stepped") {
+          aLine.makeStepped(i);
+        }
+      }
+
+      if (savedFormData.savedTypeData.pointStyle == "Random") {
+        toRunRandom.add(RandomLineHelper.randomLinePoints);
+      } else {
+        aLine.changePoints(i,
+            savedFormData.savedTypeData.pointStyle?.toLowerCase() ?? "circle");
+      }
+    }
+
+    toRunRandom.forEach((element) => {element(rand, aLine)});
+
+    _randomLables(aLine);
+    return aLine;
   }
 }

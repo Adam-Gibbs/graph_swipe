@@ -29,7 +29,7 @@ class FormStepBlocs {
                     isEnabled: isLine(),
                     enableOnlyWhenFormBlocCanSubmit: true,
                     decoration: InputDecoration(
-                      labelText: 'Graph Title',
+                      labelText: 'Graph Title (Blank for random)',
                       prefixIcon: Icon(Icons.title),
                     ),
                   ),
@@ -329,7 +329,7 @@ class FormStepBlocs {
 
   static FormBlocStep optionsStep(FormFields wizardFormBloc) {
     return FormBlocStep(
-        title: Text('Y Axes'),
+        title: Text('Options'),
         content: Card(
             color: Colors.white,
             margin: const EdgeInsets.all(CURVEDEDGE),

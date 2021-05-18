@@ -96,4 +96,42 @@ class SaveFormHelper {
 
     savedFormData.hasYAxes = true;
   }
+
+  void saveType(
+      String? type,
+      bool? chooseColour,
+      Color? colour,
+      bool? boldBorder,
+      bool? roundedBars,
+      bool? displayLines,
+      bool? lineFill,
+      String? lineStyle,
+      String? pointToPoint,
+      String? pointStyle) {
+    if (type == "Random") {
+      savedFormData.hasType = false;
+      return;
+    }
+    savedFormData.savedTypeData.type = type?.toLowerCase();
+
+    // Bar Graph Options
+    savedFormData.savedTypeData.isBorderColour = chooseColour;
+    savedFormData.savedTypeData.borderColour = [
+      colour?.red ?? 255,
+      colour?.green ?? 255,
+      colour?.blue ?? 255
+    ];
+    savedFormData.savedTypeData.borderTransparency = colour?.opacity;
+    savedFormData.savedTypeData.boldBorders = boldBorder;
+    savedFormData.savedTypeData.roundBars = roundedBars;
+
+    // Line Graph Options
+    savedFormData.savedTypeData.displayLines = displayLines;
+    savedFormData.savedTypeData.fill = lineFill;
+    savedFormData.savedTypeData.lineStyle = lineStyle;
+    savedFormData.savedTypeData.pointToPoint = pointToPoint;
+    savedFormData.savedTypeData.pointStyle = pointStyle;
+
+    savedFormData.hasType = true;
+  }
 }

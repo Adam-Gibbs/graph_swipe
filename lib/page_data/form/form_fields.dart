@@ -9,9 +9,7 @@ class FormFields extends FormBloc<String, String> {
   final DataPageState dataPage;
   final SaveFormHelper saveFormHelper;
 
-  final title = TextFieldBloc(
-    validators: [FieldBlocValidators.required],
-  );
+  final title = TextFieldBloc();
 
   var dataSets = ListFieldBloc<DataSetFieldBloc>();
 
@@ -86,8 +84,8 @@ class FormFields extends FormBloc<String, String> {
   final displayLegend = BooleanFieldBloc(initialValue: true);
 
   final legendPosition = SelectFieldBloc(
-    items: ['Top', 'Bottom', 'Left', 'Right', 'Random'],
-    initialValue: 'Random',
+    items: ['Top', 'Bottom', 'Left', 'Right'],
+    initialValue: 'Bottom',
     validators: [FieldBlocValidators.required],
   );
   final displayDataLabels = BooleanFieldBloc();
@@ -217,23 +215,29 @@ class FormFields extends FormBloc<String, String> {
   void onSubmitting() async {
     if (state.currentStep == 0) {
       saveFormHelper.saveName(title.value);
-    }
-
-    if (state.currentStep == 1) {
+    } else if (state.currentStep == 1) {
       saveFormHelper.saveXAxes(xAxesLabel.value, xAxesDisplayLabel.value,
           xAxesDisplayAxes.value, xAxesPosition.value, xAxesValues.value);
-    }
-
-    if (state.currentStep == 2) {
+    } else if (state.currentStep == 2) {
       dataSets.value.forEach((element) => {
             saveFormHelper.saveDataSet(element.dataSetName.value,
                 element.data.value, element.chooseColour.value, element.colour)
           });
-    }
-
-    if (state.currentStep == 3) {
+    } else if (state.currentStep == 3) {
       saveFormHelper.saveYAxes(yAxesLabel.value, yAxesDisplayLabel.value,
           yAxesDisplayAxes.value, yAxesPosition.value);
+    } else if (state.currentStep == 4) {
+      saveFormHelper.saveType(
+          chartType.value,
+          chooseBorderColour.value,
+          borderColour,
+          boldBorder.value,
+          roundedBars.value,
+          displayLines.value,
+          filledLine.value,
+          drawnLine.value,
+          pointToPointLine.value,
+          pointShapes.value);
     }
     emitSuccess();
   }
