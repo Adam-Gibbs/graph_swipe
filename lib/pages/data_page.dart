@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:graph_swipe/main.dart';
 import 'package:graph_swipe/page_data/form/form_loading_dialog.dart';
 import 'package:graph_swipe/page_data/form/form_fields.dart';
 import 'package:graph_swipe/page_data/form/form_step_blocs.dart';
 
 class DataPage extends StatefulWidget {
+  final MainAppState mainApp;
+  DataPage(this.mainApp);
+
   @override
-  DataPageState createState() => DataPageState();
+  DataPageState createState() => DataPageState(mainApp);
 }
 
 class DataPageState extends State<DataPage> {
   var _type = StepperType.vertical;
   Color currentColor = Colors.blue;
+  final MainAppState mainApp;
+
+  DataPageState(this.mainApp);
 
   // TODO: currently a bodge to redraw the form, should fix to just redraw individual Widget
   void changeColor(Color colour) => setState(() => currentColor = colour);
+  void goToExplore() => mainApp.setState(() => mainApp.selectedPage = 1);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +48,7 @@ class DataPageState extends State<DataPage> {
                     FormLoadingDialog.hide(context);
 
                     if (state.stepCompleted == state.lastStep) {
-                      print("Done");
+                      goToExplore();
                     }
                   },
                   onFailure: (context, state) {
@@ -57,6 +65,7 @@ class DataPageState extends State<DataPage> {
                         FormStepBlocs.dataSetsStep(formBloc, this),
                         FormStepBlocs.yAxesStep(formBloc),
                         FormStepBlocs.typeStep(formBloc, context, this),
+                        FormStepBlocs.optionsStep(formBloc)
                       ];
                     },
                   ),

@@ -42,22 +42,19 @@ Widget dataSetFormStart(int index, VoidCallback onRemoveDataSet) {
 
 List<Widget> dataSetForm(DataSetFieldBloc dataSetField, BuildContext context,
     DataPageState dataPage) {
-  void setColour(Color colour) {
-    dataSetField.colour = colour;
-    dataPage.changeColor(colour);
-  }
-
   return [
     TextFieldBlocBuilder(
       textFieldBloc: dataSetField.dataSetName,
       decoration: InputDecoration(
         labelText: 'Data Set Name',
+        prefixIcon: Icon(Icons.text_fields),
       ),
     ),
     TextFieldBlocBuilder(
       textFieldBloc: dataSetField.data,
       decoration: InputDecoration(
         labelText: 'Data, comma separated values',
+        prefixIcon: Icon(Icons.data_usage),
       ),
     ),
     SwitchFieldBlocBuilder(
@@ -67,7 +64,18 @@ List<Widget> dataSetForm(DataSetFieldBloc dataSetField, BuildContext context,
         child: Text('Specify Data Colour'),
       ),
     ),
-    ElevatedButton(
+  ];
+}
+
+Widget dataSetColourButton(DataSetFieldBloc dataSetField, BuildContext context,
+    DataPageState dataPage) {
+  void setColour(Color colour) {
+    dataSetField.colour = colour;
+    dataPage.changeColor(colour);
+  }
+
+  if (dataSetField.chooseColour.value!) {
+    return ElevatedButton(
         onPressed: () {
           showDialog(
             context: context,
@@ -99,25 +107,26 @@ List<Widget> dataSetForm(DataSetFieldBloc dataSetField, BuildContext context,
             primary: dataSetField.colour,
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        child: const Text('Choose Colour')),
-  ];
+        child: const Text('Choose Colour'));
+  } else {
+    return Container();
+  }
 }
 
-List<Widget> combineDataSetForm(Widget startForm, List<Widget> endForm) {
+List<Widget> combineDataSetForm(Widget startForm, DataSetFieldBloc dataSetField,
+    BuildContext context, DataPageState dataPage) {
   List<Widget> tempForm = [startForm];
-  tempForm.addAll(endForm);
+  tempForm.addAll(dataSetForm(dataSetField, context, dataPage));
+  tempForm.add(dataSetColourButton(dataSetField, context, dataPage));
   return tempForm;
 }
 
 class DefaultDataSetCard extends StatelessWidget {
   final DataSetFieldBloc dataSetField;
-  final FormFields wizardFormBloc;
   final DataPageState dataPage;
 
   const DefaultDataSetCard(
-      {required this.dataSetField,
-      required this.wizardFormBloc,
-      required this.dataPage});
+      {required this.dataSetField, required this.dataPage});
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +136,8 @@ class DefaultDataSetCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-            children: combineDataSetForm(dataSetFormDefaultStart(),
-                dataSetForm(dataSetField, context, dataPage))),
+            children: combineDataSetForm(
+                dataSetFormDefaultStart(), dataSetField, context, dataPage)),
       ),
     );
   }
@@ -156,7 +165,9 @@ class DataSetCard extends StatelessWidget {
         child: Column(
             children: combineDataSetForm(
                 dataSetFormStart(dataSetIndex, onRemoveDataSet),
-                dataSetForm(dataSetField, context, dataPage))),
+                dataSetField,
+                context,
+                dataPage)),
       ),
     );
   }

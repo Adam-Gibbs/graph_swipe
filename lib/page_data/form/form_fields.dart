@@ -8,18 +8,18 @@ class FormFields extends FormBloc<String, String> {
   final DataPageState dataPage;
 
   final title = TextFieldBloc(
-      // validators: [FieldBlocValidators.required],
-      );
+    validators: [FieldBlocValidators.required],
+  );
 
   var dataSets = ListFieldBloc<DataSetFieldBloc>();
 
   final xAxesVales = TextFieldBloc(
-      // validators: [FieldBlocValidators.required],
-      );
+    validators: [FieldBlocValidators.required],
+  );
 
   final xAxesLabel = TextFieldBloc(
-      // validators: [FieldBlocValidators.required],
-      );
+    validators: [FieldBlocValidators.required],
+  );
 
   final xAxesDisplayLabel = BooleanFieldBloc();
 
@@ -28,12 +28,12 @@ class FormFields extends FormBloc<String, String> {
   final xAxesPosition = SelectFieldBloc(
     items: ['Top', 'Bottom', 'Random'],
     initialValue: 'Random',
-    // validators: [FieldBlocValidators.required],
+    validators: [FieldBlocValidators.required],
   );
 
   final yAxesLabel = TextFieldBloc(
-      // validators: [FieldBlocValidators.required],
-      );
+    validators: [FieldBlocValidators.required],
+  );
 
   final yAxesDisplayLabel = BooleanFieldBloc();
 
@@ -42,13 +42,13 @@ class FormFields extends FormBloc<String, String> {
   final yAxesPosition = SelectFieldBloc(
     items: ['Left', 'Right', 'Random'],
     initialValue: 'Random',
-    // validators: [FieldBlocValidators.required],
+    validators: [FieldBlocValidators.required],
   );
 
   final chartType = SelectFieldBloc(
     items: ['Bar', 'Line', 'Random'],
     initialValue: 'Random',
-    // validators: [FieldBlocValidators.required],
+    validators: [FieldBlocValidators.required],
   );
 
   final chooseBorderColour = BooleanFieldBloc();
@@ -79,6 +79,16 @@ class FormFields extends FormBloc<String, String> {
   );
 
   final filledLine = BooleanFieldBloc();
+
+  final displayTitle = BooleanFieldBloc();
+  final displayLegend = BooleanFieldBloc(initialValue: true);
+
+  final legendPosition = SelectFieldBloc(
+    items: ['Top', 'Bottom', 'Left', 'Right', 'Random'],
+    initialValue: 'Random',
+    validators: [FieldBlocValidators.required],
+  );
+  final displayDataLabels = BooleanFieldBloc();
 
   FormFields(this.dataPage) {
     addFieldBlocs(
@@ -112,6 +122,15 @@ class FormFields extends FormBloc<String, String> {
       step: 4,
       fieldBlocs: [chartType],
     );
+    addFieldBlocs(
+      step: 5,
+      fieldBlocs: [
+        displayTitle,
+        displayLegend,
+        legendPosition,
+        displayDataLabels
+      ],
+    );
 
     List<FieldBloc> barOptions = [chooseBorderColour, boldBorder, roundedBars];
     List<FieldBloc> lineOptions = [displayLines, pointShapes];
@@ -138,6 +157,7 @@ class FormFields extends FormBloc<String, String> {
           // Adds both options and flattens both to single list
           // from https://stackoverflow.com/a/15413493
           removeFieldBlocs(fieldBlocs: barOptions);
+          removeFieldBlocs(fieldBlocs: lineOptions);
           removeFieldBlocs(fieldBlocs: displayLineOptions);
           chooseBorderColour.clear();
         }
@@ -151,9 +171,19 @@ class FormFields extends FormBloc<String, String> {
     displayLines.onValueChanges(
       onData: (previous, current) async* {
         if (current.value!) {
-          addFieldBlocs(step: 4, fieldBlocs: displayLineOptions);
+          addFieldBlocs(step: 5, fieldBlocs: displayLineOptions);
         } else {
           removeFieldBlocs(fieldBlocs: displayLineOptions);
+        }
+      },
+    );
+
+    displayLegend.onValueChanges(
+      onData: (previous, current) async* {
+        if (current.value!) {
+          addFieldBlocs(step: 5, fieldBlocs: [legendPosition]);
+        } else {
+          removeFieldBlocs(fieldBlocs: [legendPosition]);
         }
       },
     );
@@ -164,7 +194,8 @@ class FormFields extends FormBloc<String, String> {
         dataSetName: TextFieldBloc(validators: [FieldBlocValidators.required]),
         data: TextFieldBloc(validators: [FieldBlocValidators.required]),
         chooseColour: BooleanFieldBloc(),
-        colour: Colors.blue);
+        colour: Colors.blue,
+        dataPage: dataPage);
   }
 
   void addDataSet() {
@@ -172,7 +203,8 @@ class FormFields extends FormBloc<String, String> {
         dataSetName: TextFieldBloc(validators: [FieldBlocValidators.required]),
         data: TextFieldBloc(validators: [FieldBlocValidators.required]),
         chooseColour: BooleanFieldBloc(),
-        colour: Colors.blue));
+        colour: Colors.blue,
+        dataPage: dataPage));
   }
 
   void removeDataSet(int index) {

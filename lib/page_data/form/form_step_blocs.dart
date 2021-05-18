@@ -105,15 +105,11 @@ class FormStepBlocs {
               builder: (context, state) {
                 if (state.fieldBlocs.length > 0) {
                   return DefaultDataSetCard(
-                      dataSetField: state.fieldBlocs[0],
-                      wizardFormBloc: wizardFormBloc,
-                      dataPage: dataPage);
+                      dataSetField: state.fieldBlocs[0], dataPage: dataPage);
                 } else {
                   state.fieldBlocs.add(wizardFormBloc.getDataSet());
                   return DefaultDataSetCard(
-                      dataSetField: state.fieldBlocs[0],
-                      wizardFormBloc: wizardFormBloc,
-                      dataPage: dataPage);
+                      dataSetField: state.fieldBlocs[0], dataPage: dataPage);
                 }
               }),
           BlocBuilder<ListFieldBloc<DataSetFieldBloc>,
@@ -247,7 +243,6 @@ class FormStepBlocs {
           itemBuilder: (context, value) => value,
           decoration: InputDecoration(
             labelText: 'Chart Type',
-            prefixIcon: Icon(Icons.swap_horiz),
           ),
         ),
         SwitchFieldBlocBuilder(
@@ -295,7 +290,7 @@ class FormStepBlocs {
           itemBuilder: (context, value) => value,
           decoration: InputDecoration(
             labelText: 'Line Style',
-            prefixIcon: Icon(Icons.swap_horiz),
+            prefixIcon: Icon(Icons.line_style),
           ),
         ),
         DropdownFieldBlocBuilder<String>(
@@ -303,7 +298,7 @@ class FormStepBlocs {
           itemBuilder: (context, value) => value,
           decoration: InputDecoration(
             labelText: 'Point to Point Style',
-            prefixIcon: Icon(Icons.swap_horiz),
+            prefixIcon: Icon(Icons.linear_scale),
           ),
         ),
         DropdownFieldBlocBuilder<String>(
@@ -311,7 +306,7 @@ class FormStepBlocs {
           itemBuilder: (context, value) => value,
           decoration: InputDecoration(
             labelText: 'Point Style',
-            prefixIcon: Icon(Icons.swap_horiz),
+            prefixIcon: Icon(Icons.circle),
           ),
         ),
       ]);
@@ -328,6 +323,50 @@ class FormStepBlocs {
               padding: const EdgeInsets.all(CURVEDEDGE),
               child: Column(
                 children: getTypeForm(context, dataPage),
+              ),
+            )));
+  }
+
+  static FormBlocStep optionsStep(FormFields wizardFormBloc) {
+    return FormBlocStep(
+        title: Text('Y Axes'),
+        content: Card(
+            color: Colors.white,
+            margin: const EdgeInsets.all(CURVEDEDGE),
+            child: Padding(
+              padding: const EdgeInsets.all(CURVEDEDGE),
+              child: Column(
+                children: <Widget>[
+                  SwitchFieldBlocBuilder(
+                    booleanFieldBloc: wizardFormBloc.displayTitle,
+                    body: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Display Graph Title'),
+                    ),
+                  ),
+                  SwitchFieldBlocBuilder(
+                    booleanFieldBloc: wizardFormBloc.displayLegend,
+                    body: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Display Legend'),
+                    ),
+                  ),
+                  DropdownFieldBlocBuilder<String>(
+                    selectFieldBloc: wizardFormBloc.legendPosition,
+                    itemBuilder: (context, value) => value,
+                    decoration: InputDecoration(
+                      labelText: 'Legend Position',
+                      prefixIcon: Icon(Icons.swap_calls),
+                    ),
+                  ),
+                  SwitchFieldBlocBuilder(
+                    booleanFieldBloc: wizardFormBloc.displayDataLabels,
+                    body: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Display Data Labels'),
+                    ),
+                  ),
+                ],
               ),
             )));
   }

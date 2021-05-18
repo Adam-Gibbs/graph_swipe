@@ -8,15 +8,15 @@ void main() => runApp(MainApp());
 
 class MainApp extends StatefulWidget {
   @override
-  _MainAppState createState() => _MainAppState();
+  MainAppState createState() => MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class MainAppState extends State<MainApp> {
   int selectedPage = 1;
-  final _pageOptions = [DataPage(), ExplorePage(), FavouritePage()];
 
   @override
   Widget build(BuildContext context) {
+    final _pageOptions = [DataPage(this), ExplorePage(), FavouritePage()];
     return MaterialApp(
       title: 'Graph Swiper',
       debugShowCheckedModeBanner: false,
