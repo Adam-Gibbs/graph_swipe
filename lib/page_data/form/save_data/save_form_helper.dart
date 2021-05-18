@@ -60,6 +60,7 @@ class SaveFormHelper {
       String? name, String? data, bool? chooseColour, Color? colour) {
     SavedDataSet savedDataSet = new SavedDataSet();
     savedDataSet.name = name;
+    savedDataSet.chooseColour = chooseColour;
     // if colour value is null, save black
     savedDataSet.colour = [
       colour?.red ?? 255,
