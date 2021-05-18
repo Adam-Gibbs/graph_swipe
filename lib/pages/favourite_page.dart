@@ -9,6 +9,7 @@ import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/page_data/favourite_graphs.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:graph_swipe/page_data/page_size.dart';
+import 'package:graph_swipe/pages/customise_page.dart';
 
 class FavouritePage extends StatefulWidget {
   final FavouriteGraphs favouriteGraphs;
@@ -92,8 +93,8 @@ class _FavouritePageState extends State<FavouritePage> {
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(9.0))))),
       onPressed: () {
-        doPress!(graph);
         Navigator.of(context).pop();
+        doPress!(graph);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -157,12 +158,18 @@ class _FavouritePageState extends State<FavouritePage> {
                     alertButton("Share", graph, context, doPress: _shareImage),
                     alertButton("Delete", graph, context,
                         doPress: _deleteGraph),
-                    alertButton("Customise", graph, context),
+                    alertButton("Customise", graph, context,
+                        doPress: _goToCustomise),
                     alertButton("Close", graph, context),
                   ],
                 ),
               ));
         });
+  }
+
+  void _goToCustomise(Graph graph) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CusomisePage(graph)));
   }
 
   Widget _buildRow(Graph graph) {
