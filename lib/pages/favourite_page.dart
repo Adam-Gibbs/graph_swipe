@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 import 'package:graph_swipe/graph_manager/graph_manager.dart';
-import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
+import 'package:graph_swipe/graphs/graph.dart';
+import 'package:graph_swipe/page_data/favourite_graphs.dart';
 
 class FavouritePage extends StatefulWidget {
+  final FavouriteGraphs favouriteGraphs;
+  FavouritePage(this.favouriteGraphs);
   @override
-  _FavouritePageState createState() => _FavouritePageState();
+  _FavouritePageState createState() => _FavouritePageState(favouriteGraphs);
 }
 
 class _FavouritePageState extends State<FavouritePage> {
+  final FavouriteGraphs favouriteGraphs;
   TextEditingController editingController = TextEditingController();
-  List<WordPair> items = [];
-  List<WordPair> _suggestions = <WordPair>[];
+  List<Graph> items = [];
   final _biggerFont = const TextStyle(fontSize: 20);
   GraphManager graphManager = new GraphManager();
 
+  _FavouritePageState(this.favouriteGraphs);
+
   @override
   void initState() {
-    _suggestions.addAll(generateWordPairs().take(100));
-    items.addAll(_suggestions);
+    items.addAll(favouriteGraphs.graphs);
     super.initState();
   }
 
   void filterSearchResults(String query) {
-    List<WordPair> dummySearchList = [];
-    dummySearchList.addAll(_suggestions);
+    List<Graph> dummySearchList = [];
+    dummySearchList.addAll(favouriteGraphs.graphs);
     if (query.isNotEmpty) {
-      List<WordPair> dummyListData = [];
+      List<Graph> dummyListData = [];
       dummySearchList.forEach((item) {
-        if (item.join(" ").contains(query)) {
+        if (item.options.title.toUpperCase().contains(query.toUpperCase())) {
           dummyListData.add(item);
         }
       });
@@ -40,7 +43,7 @@ class _FavouritePageState extends State<FavouritePage> {
     } else {
       setState(() {
         items.clear();
-        items.addAll(_suggestions);
+        items.addAll(favouriteGraphs.graphs);
       });
     }
   }
@@ -48,21 +51,21 @@ class _FavouritePageState extends State<FavouritePage> {
   Widget _buildSuggestions() {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: items.length,
+        itemCount: items.length * 2,
         padding: const EdgeInsets.all(16),
         itemBuilder: (BuildContext _context, int i) {
           if (i.isOdd) {
             return Divider();
           }
-          return _buildRow(items[i]);
+          return _buildRow(items[i ~/ 2]);
         });
   }
 
-  Widget _buildRow(WordPair pair) {
-    graphManager.createGraph(savedFormData: new SavedFormData());
+  Widget _buildRow(Graph graph) {
+    graphManager.setGraph(graph);
     return ListTile(
       title: Text(
-        pair.join(" "),
+        graph.options.title,
         style: _biggerFont,
       ),
       leading: FadeInImage(

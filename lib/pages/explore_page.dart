@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graph_swipe/graph_manager/graph_manager.dart';
+import 'package:graph_swipe/page_data/favourite_graphs.dart';
 import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 import 'package:graph_swipe/page_data/page_size.dart';
 import 'package:graph_swipe/page_data/swipe_card_content.dart';
@@ -8,10 +9,12 @@ import 'package:swipe_cards/swipe_cards.dart';
 
 class ExplorePage extends StatefulWidget {
   final SavedFormData savedFormData;
-  ExplorePage(this.savedFormData);
+  final FavouriteGraphs favouriteGraphs;
+  ExplorePage(this.savedFormData, this.favouriteGraphs);
 
   @override
-  _ExplorePageState createState() => _ExplorePageState(savedFormData);
+  _ExplorePageState createState() =>
+      _ExplorePageState(savedFormData, favouriteGraphs);
 }
 
 class _ExplorePageState extends State<ExplorePage> {
@@ -21,8 +24,9 @@ class _ExplorePageState extends State<ExplorePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   GraphManager graphManager = new GraphManager();
   final SavedFormData savedFormData;
+  final FavouriteGraphs favouriteGraphs;
 
-  _ExplorePageState(this.savedFormData);
+  _ExplorePageState(this.savedFormData, this.favouriteGraphs);
 
   void addSwipeItems(int quantity) {
     for (int i = 0; i < quantity; i++) {
@@ -34,17 +38,15 @@ class _ExplorePageState extends State<ExplorePage> {
                 PageSize.getWidth(context), PageSize.getCardHeight(context)),
           ),
           likeAction: () {
-            // TODO: trigger save, take content.graphData to save
             _swipeIndex++;
-            print("like");
+            favouriteGraphs
+                .favourite(_swipeItems[_swipeIndex].content.graphData);
           },
           nopeAction: () {
             _swipeIndex++;
-            print("dislike");
           },
           superlikeAction: () {
             _swipeIndex++;
-            print("custom");
             Navigator.push(
               context,
               MaterialPageRoute(

@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
+import 'package:graph_swipe/page_data/favourite_graphs.dart';
 import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 import 'package:graph_swipe/pages/data_page.dart';
 import 'package:graph_swipe/pages/explore_page.dart';
@@ -15,13 +16,14 @@ class MainApp extends StatefulWidget {
 class MainAppState extends State<MainApp> {
   int selectedPage = 1;
   final SavedFormData savedFormData = new SavedFormData();
+  final FavouriteGraphs favouriteGraphs = new FavouriteGraphs();
 
   @override
   Widget build(BuildContext context) {
     final _pageOptions = [
       DataPage(this, savedFormData),
-      ExplorePage(savedFormData),
-      FavouritePage()
+      ExplorePage(savedFormData, favouriteGraphs),
+      FavouritePage(favouriteGraphs)
     ];
     return MaterialApp(
       title: 'Graph Swiper',
