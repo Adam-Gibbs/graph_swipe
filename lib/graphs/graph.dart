@@ -1,18 +1,25 @@
 import 'package:graph_swipe/graphs/data/sets/data_set.dart';
 import 'package:graph_swipe/graphs/options/options.dart';
 import 'dart:math';
+import 'package:json_annotation/json_annotation.dart';
 
-abstract class Graph {
+part 'graph.g.dart';
+
+@JsonSerializable()
+class Graph {
   Random rand = Random();
-  abstract List<DataSet> dataSets;
-  abstract Options options;
-  abstract String type;
-  abstract List<String> xLabels;
+  late List<DataSet> dataSets;
+  late Options options;
+  late String type;
+  late List<String> xLabels;
 
   Graph(String type, List<String> xLabels) {
     this.type = type;
     this.xLabels = xLabels;
   }
+
+  factory Graph.fromJson(Map<String, dynamic> json) => _$GraphFromJson(json);
+  Map<String, dynamic> toJson() => _$GraphToJson(this);
 
   Set<int> getHalfDataSets() {
     Set<int> uniqueIndexs = {};

@@ -1,10 +1,20 @@
 import 'package:graph_swipe/graph_manager/random/random_string.dart';
 import 'package:graph_swipe/graphs/options/scale.dart';
 import 'package:graph_swipe/page_data/form/save_data/saved%20_axes.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'scale_groups.g.dart';
+
+@JsonSerializable()
 class ScaleGroups {
   List<Scale> xScales = [];
   List<Scale> yScales = [];
+
+  ScaleGroups();
+
+  factory ScaleGroups.fromJson(Map<String, dynamic> json) =>
+      _$ScaleGroupsFromJson(json);
+  Map<String, dynamic> toJson() => _$ScaleGroupsToJson(this);
 
   void addDefaultXScale({bool display = true, bool stacked = false}) {
     xScales.add(Scale("x", "bottom", display: display, stacked: stacked));

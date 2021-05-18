@@ -49,16 +49,18 @@ class _FavouritePageState extends State<FavouritePage> {
   }
 
   Widget _buildSuggestions() {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: items.length * 2,
-        padding: const EdgeInsets.all(16),
-        itemBuilder: (BuildContext _context, int i) {
-          if (i.isOdd) {
-            return Divider();
-          }
-          return _buildRow(items[i ~/ 2]);
-        });
+    return items.length > 0
+        ? ListView.builder(
+            shrinkWrap: true,
+            itemCount: items.length * 2,
+            padding: const EdgeInsets.all(16),
+            itemBuilder: (BuildContext _context, int i) {
+              if (i.isOdd) {
+                return Divider();
+              }
+              return _buildRow(items[i ~/ 2]);
+            })
+        : Center(child: const Text('No items'));
   }
 
   Widget _buildRow(Graph graph) {

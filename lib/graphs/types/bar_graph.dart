@@ -3,7 +3,11 @@ import 'package:graph_swipe/graphs/data/sets/data_set_bar.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set_upgrader.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/options/options.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'bar_graph.g.dart';
+
+@JsonSerializable()
 class BarGraph extends Graph {
   late List<DataSet> dataSets;
   late List<DataSetBar> _dataSets;
@@ -14,6 +18,10 @@ class BarGraph extends Graph {
   BarGraph(List<String> xLabels) : super("bar", xLabels) {
     this.xLabels = xLabels;
   }
+
+  factory BarGraph.fromJson(Map<String, dynamic> json) =>
+      _$BarGraphFromJson(json);
+  Map<String, dynamic> toJson() => _$BarGraphToJson(this);
 
   void _saveDataSets() {
     this.dataSets = this._dataSets;

@@ -1,5 +1,9 @@
 import 'package:graph_swipe/graph_manager/random/random_string.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'scale.g.dart';
+
+@JsonSerializable()
 class Scale {
   late String id; // id: 'y'
   late String position; // position: 'bottom'
@@ -20,6 +24,9 @@ class Scale {
     this.label = label;
     this.stacked = stacked;
   }
+
+  factory Scale.fromJson(Map<String, dynamic> json) => _$ScaleFromJson(json);
+  Map<String, dynamic> toJson() => _$ScaleToJson(this);
 
   void randomLabel() {
     this.label = RandomString.randWord();

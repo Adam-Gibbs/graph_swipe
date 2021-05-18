@@ -1,5 +1,10 @@
+import 'package:graph_swipe/graphs/data/data_list.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'data_set_bar.g.dart';
+
+@JsonSerializable()
 class DataSetBar extends DataSet {
   List<int> borderColour = [];
   double borderTransparency = 1.0;
@@ -24,6 +29,10 @@ class DataSetBar extends DataSet {
     this.yAxis = yAxis;
     this.xAxis = xAxis;
   }
+
+  factory DataSetBar.fromJson(Map<String, dynamic> json) =>
+      _$DataSetBarFromJson(json);
+  Map<String, dynamic> toJson() => _$DataSetBarToJson(this);
 
   @override
   void alterSet(

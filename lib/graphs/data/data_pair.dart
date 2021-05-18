@@ -1,20 +1,26 @@
 import 'package:graph_swipe/graphs/data/data.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'data_pair.g.dart';
+
+@JsonSerializable()
 class DataPair extends Data {
-  late double min;
-  late double max;
+  late List<double> pair;
 
-  DataPair(List<double> inList) : super((inList[0] + inList[1]) / 2) {
-    this.min = inList[0];
-    this.max = inList[1];
+  DataPair(List<double> pair) : super((pair[0] + pair[1]) / 2) {
+    this.pair = pair;
   }
 
+  factory DataPair.fromJson(Map<String, dynamic> json) =>
+      _$DataPairFromJson(json);
+  Map<String, dynamic> toJson() => _$DataPairToJson(this);
+
   List<double> getvalues() {
-    return <double>[this.min, this.max];
+    return pair;
   }
 
   @override
   String toString() {
-    return "[" + min.toString() + ", " + max.toString() + "]";
+    return "[" + pair[0].toString() + ", " + pair[1].toString() + "]";
   }
 }

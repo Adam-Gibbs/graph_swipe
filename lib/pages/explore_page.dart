@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:graph_swipe/graph_manager/graph_manager.dart';
+import 'package:graph_swipe/page_data/disk_save.dart';
 import 'package:graph_swipe/page_data/favourite_graphs.dart';
 import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 import 'package:graph_swipe/page_data/page_size.dart';
@@ -41,6 +44,7 @@ class _ExplorePageState extends State<ExplorePage> {
             _swipeIndex++;
             favouriteGraphs
                 .favourite(_swipeItems[_swipeIndex].content.graphData);
+            DiskSave.saveToDisk(favouriteGraphs);
           },
           nopeAction: () {
             _swipeIndex++;

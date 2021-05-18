@@ -1,5 +1,9 @@
 import 'package:graph_swipe/graphs/options/scale_groups.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'options.g.dart';
+
+@JsonSerializable()
 class Options {
   late String title;
   late bool displayTitle;
@@ -24,6 +28,10 @@ class Options {
     this.roundedBars = roundedBars;
     this.scales = scales;
   }
+
+  factory Options.fromJson(Map<String, dynamic> json) =>
+      _$OptionsFromJson(json);
+  Map<String, dynamic> toJson() => _$OptionsToJson(this);
 
   String _showTitle() {
     return "title: {display: " +

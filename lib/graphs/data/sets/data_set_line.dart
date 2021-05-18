@@ -1,5 +1,10 @@
+import 'package:graph_swipe/graphs/data/data_list.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'data_set_line.g.dart';
+
+@JsonSerializable()
 class DataSetLine extends DataSet {
   List<int> lineColour = [];
   late bool fill;
@@ -37,6 +42,10 @@ class DataSetLine extends DataSet {
     this.yAxis = yAxis;
     this.xAxis = xAxis;
   }
+
+  factory DataSetLine.fromJson(Map<String, dynamic> json) =>
+      _$DataSetLineFromJson(json);
+  Map<String, dynamic> toJson() => _$DataSetLineToJson(this);
 
   @override
   void alterSet(

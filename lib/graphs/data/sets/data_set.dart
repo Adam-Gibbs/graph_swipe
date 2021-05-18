@@ -1,5 +1,9 @@
 import 'package:graph_swipe/graphs/data/data_list.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'data_set.g.dart';
+
+@JsonSerializable()
 class DataSet {
   static const List<int> defaultColour = [0, 0, 0];
   DataList data = new DataList();
@@ -13,6 +17,10 @@ class DataSet {
     this.label = label;
     this.transparency = transparency;
   }
+
+  factory DataSet.fromJson(Map<String, dynamic> json) =>
+      _$DataSetFromJson(json);
+  Map<String, dynamic> toJson() => _$DataSetToJson(this);
 
   void setDataList(DataList dataList) {
     this.data = dataList;

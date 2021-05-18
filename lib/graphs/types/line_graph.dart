@@ -3,7 +3,11 @@ import 'package:graph_swipe/graphs/data/sets/data_set_line.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set_upgrader.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/options/options.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'line_graph.g.dart';
+
+@JsonSerializable()
 class LineGraph extends Graph {
   late List<DataSet> dataSets;
   late List<DataSetLine> _dataSets;
@@ -14,6 +18,10 @@ class LineGraph extends Graph {
   LineGraph(List<String> xLabels) : super("line", xLabels) {
     this.xLabels = xLabels;
   }
+
+  factory LineGraph.fromJson(Map<String, dynamic> json) =>
+      _$LineGraphFromJson(json);
+  Map<String, dynamic> toJson() => _$LineGraphToJson(this);
 
   void _saveDataSets() {
     this.dataSets = this._dataSets;
