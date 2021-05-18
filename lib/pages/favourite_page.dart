@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:graph_swipe/graph_manager/graph_manager.dart';
 import 'package:graph_swipe/graphs/graph.dart';
@@ -60,22 +62,98 @@ class _FavouritePageState extends State<FavouritePage> {
               }
               return _buildRow(items[i ~/ 2]);
             })
-        : Center(child: const Text('No items'));
+        : Center(
+            child: SingleChildScrollView(
+                child: Column(children: <Widget>[
+            Icon(Icons.sentiment_dissatisfied, size: 70),
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              alignment: Alignment.center,
+              child: Text(
+                'You have no favourites,\n swipe right in explore to add some',
+                style: TextStyle(fontSize: 25),
+                textAlign: TextAlign.center,
+              ),
+            )
+          ])));
+  }
+
+  Widget alertButton(String text) {
+    return TextButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.blue),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(9.0))))),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            text,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void showAlert(Graph graph) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: AlertDialog(
+                backgroundColor: Colors.white60,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                contentPadding:
+                    const EdgeInsets.only(bottom: 0, left: 8, right: 8, top: 8),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      graph.type == "line"
+                          ? Icons.show_chart_sharp
+                          : Icons.bar_chart,
+                      color: Colors.blue,
+                      size: 50.0,
+                    ),
+                    Flexible(
+                        child: Text(
+                      graph.options.title,
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    )),
+                    alertButton("Share"),
+                    alertButton("Delete"),
+                    alertButton("Customise"),
+                    alertButton("Close"),
+                  ],
+                ),
+              ));
+        });
   }
 
   Widget _buildRow(Graph graph) {
     graphManager.setGraph(graph);
     return ListTile(
-      title: Text(
-        graph.options.title,
-        style: _biggerFont,
-      ),
-      leading: FadeInImage(
-        placeholder:
-            AssetImage('res/circular_progress_indicator_selective.gif'),
-        image: NetworkImage(graphManager.getGraphImage(600, 300)),
-      ),
-    );
+        title: Text(
+          graph.options.title,
+          style: _biggerFont,
+        ),
+        leading: FadeInImage(
+          placeholder:
+              AssetImage('res/circular_progress_indicator_selective.gif'),
+          image: NetworkImage(graphManager.getGraphImage(600, 300)),
+        ),
+        onTap: () {
+          showAlert(graph);
+        });
   }
 
   @override
