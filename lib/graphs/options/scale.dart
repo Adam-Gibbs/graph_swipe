@@ -1,4 +1,4 @@
-import 'package:graph_swipe/api_manager/random/random_string.dart';
+import 'package:graph_swipe/graph_manager/random/random_string.dart';
 
 class Scale {
   late String id; // id: 'y'

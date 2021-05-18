@@ -1,5 +1,5 @@
 import 'package:graph_swipe/graphs/graph.dart';
-import 'package:graph_swipe/api_manager/random/random_factory.dart';
+import 'package:graph_swipe/graph_manager/random/random_factory.dart';
 
 import 'dart:math';
 

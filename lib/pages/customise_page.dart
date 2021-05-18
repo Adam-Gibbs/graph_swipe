@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graph_swipe/api_manager/graph_manager.dart';
+import 'package:graph_swipe/graph_manager/graph_manager.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/page_data/page_size.dart';
 

@@ -1,4 +1,4 @@
-import 'package:graph_swipe/api_manager/random/random_string.dart';
+import 'package:graph_swipe/graph_manager/random/random_string.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set.dart';
 import 'package:graph_swipe/graphs/data/sets/data_set_upgrader.dart';
 import 'package:graph_swipe/graphs/options/scale_groups.dart';

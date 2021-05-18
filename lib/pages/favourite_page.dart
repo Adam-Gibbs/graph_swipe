@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'package:graph_swipe/api_manager/graph_manager.dart';
+import 'package:graph_swipe/graph_manager/graph_manager.dart';
 
 class FavouritePage extends StatefulWidget {
   @override

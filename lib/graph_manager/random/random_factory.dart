@@ -1,6 +1,6 @@
-import 'package:graph_swipe/api_manager/random/random_bar_helper.dart';
-import 'package:graph_swipe/api_manager/random/random_line_helper.dart';
-import 'package:graph_swipe/api_manager/random/random_string.dart';
+import 'package:graph_swipe/graph_manager/random/random_bar_helper.dart';
+import 'package:graph_swipe/graph_manager/random/random_line_helper.dart';
+import 'package:graph_swipe/graph_manager/random/random_string.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graphs/graph_factory.dart';
 import 'package:graph_swipe/graphs/types/bar_graph.dart';
