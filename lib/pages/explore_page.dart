@@ -26,7 +26,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   void addSwipeItems(int quantity) {
     for (int i = 0; i < quantity; i++) {
-      graphManager.createGraph(title: savedFormData.graphName);
+      graphManager.createGraph(savedFormData: savedFormData);
       _swipeItems.add(SwipeItem(
           content: Content(
             graphData: graphManager.getGraphData(),

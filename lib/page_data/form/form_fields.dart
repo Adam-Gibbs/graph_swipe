@@ -15,7 +15,7 @@ class FormFields extends FormBloc<String, String> {
 
   var dataSets = ListFieldBloc<DataSetFieldBloc>();
 
-  final xAxesVales = TextFieldBloc(
+  final xAxesValues = TextFieldBloc(
     validators: [FieldBlocValidators.required],
   );
 
@@ -25,11 +25,11 @@ class FormFields extends FormBloc<String, String> {
 
   final xAxesDisplayLabel = BooleanFieldBloc();
 
-  final xAxesDisplayAxes = BooleanFieldBloc();
+  final xAxesDisplayAxes = BooleanFieldBloc(initialValue: true);
 
   final xAxesPosition = SelectFieldBloc(
-    items: ['Top', 'Bottom', 'Random'],
-    initialValue: 'Random',
+    items: ['Top', 'Bottom'],
+    initialValue: 'Bottom',
     validators: [FieldBlocValidators.required],
   );
 
@@ -39,11 +39,11 @@ class FormFields extends FormBloc<String, String> {
 
   final yAxesDisplayLabel = BooleanFieldBloc();
 
-  final yAxesDisplayAxes = BooleanFieldBloc();
+  final yAxesDisplayAxes = BooleanFieldBloc(initialValue: true);
 
   final yAxesPosition = SelectFieldBloc(
-    items: ['Left', 'Right', 'Random'],
-    initialValue: 'Random',
+    items: ['Left', 'Right'],
+    initialValue: 'Left',
     validators: [FieldBlocValidators.required],
   );
 
@@ -100,7 +100,7 @@ class FormFields extends FormBloc<String, String> {
     addFieldBlocs(
       step: 1,
       fieldBlocs: [
-        xAxesVales,
+        xAxesValues,
         xAxesLabel,
         xAxesDisplayLabel,
         xAxesDisplayAxes,
@@ -216,10 +216,13 @@ class FormFields extends FormBloc<String, String> {
   @override
   void onSubmitting() async {
     if (state.currentStep == 0) {
-      saveFormHelper.saveName(title.value ?? '');
+      saveFormHelper.saveName(title.value);
     }
 
-    if (state.currentStep == 1) {}
+    if (state.currentStep == 1) {
+      saveFormHelper.saveXAxes(xAxesLabel.value, xAxesDisplayLabel.value,
+          xAxesDisplayAxes.value, xAxesPosition.value, xAxesValues.value);
+    }
     emitSuccess();
   }
 }

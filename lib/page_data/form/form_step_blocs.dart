@@ -80,7 +80,7 @@ class FormStepBlocs {
                     ),
                   ),
                   TextFieldBlocBuilder(
-                    textFieldBloc: wizardFormBloc.xAxesVales,
+                    textFieldBloc: wizardFormBloc.xAxesValues,
                     keyboardType: TextInputType.text,
                     enableOnlyWhenFormBlocCanSubmit: true,
                     decoration: InputDecoration(

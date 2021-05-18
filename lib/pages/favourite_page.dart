@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:graph_swipe/graph_manager/graph_manager.dart';
+import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 
 class FavouritePage extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class _FavouritePageState extends State<FavouritePage> {
   }
 
   Widget _buildRow(WordPair pair) {
-    graphManager.createGraph();
+    graphManager.createGraph(savedFormData: new SavedFormData());
     return ListTile(
       title: Text(
         pair.join(" "),
