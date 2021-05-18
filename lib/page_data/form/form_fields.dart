@@ -214,6 +214,7 @@ class FormFields extends FormBloc<String, String> {
   @override
   void onSubmitting() async {
     if (state.currentStep == 0) {
+      saveFormHelper.reset();
       saveFormHelper.saveName(title.value);
     } else if (state.currentStep == 1) {
       saveFormHelper.saveXAxes(xAxesLabel.value, xAxesDisplayLabel.value,

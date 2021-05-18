@@ -21,8 +21,18 @@ class SaveFormHelper {
 
   SaveFormHelper(this.savedFormData);
 
+  void reset() {
+    savedFormData.graphName = null;
+    savedFormData.savedDataSets.clear();
+    savedFormData.hasXAxes = false;
+    savedFormData.hasDataSets = false;
+    savedFormData.hasYAxes = false;
+    savedFormData.hasType = false;
+    savedFormData.hasOptions = false;
+  }
+
   void saveName(String? name) {
-    savedFormData.graphName = name;
+    savedFormData.graphName = name != "" ? name : null;
   }
 
   void saveXAxes(String? label, bool? labelDisplay, bool? displayAxes,
