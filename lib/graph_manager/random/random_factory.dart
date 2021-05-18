@@ -180,9 +180,9 @@ class RandomFactory {
         if (savedFormData.savedTypeData.pointToPoint == "Random") {
           toRunRandom.add(RandomLineHelper.randomLineCurved);
           toRunRandom.add(RandomLineHelper.randomLineStepped);
-        } else if (savedFormData.savedTypeData.lineStyle == "Curved") {
+        } else if (savedFormData.savedTypeData.pointToPoint == "Curved") {
           aLine.makeCurved(i);
-        } else if (savedFormData.savedTypeData.lineStyle == "Stepped") {
+        } else if (savedFormData.savedTypeData.pointToPoint == "Stepped") {
           aLine.makeStepped(i);
         }
       }

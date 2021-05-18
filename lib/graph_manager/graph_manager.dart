@@ -1,5 +1,3 @@
-import 'package:graph_swipe/graph_manager/random/random_string.dart';
-import 'package:graph_swipe/graphs/data/sets/data_set.dart';
 import 'package:graph_swipe/graphs/graph.dart';
 import 'package:graph_swipe/graph_manager/random/random_factory.dart';
 
@@ -36,6 +34,9 @@ class GraphManager {
     if (savedFormData.hasYAxes) {
       setGraphYAxis(savedFormData: savedFormData);
     }
+    if (savedFormData.hasOptions) {
+      setGraphOptions(savedFormData: savedFormData);
+    }
   }
 
   void setGraphXAxis({required SavedFormData savedFormData}) {
@@ -46,6 +47,17 @@ class GraphManager {
 
   void setGraphYAxis({required SavedFormData savedFormData}) {
     graph.options.scales.setYAxis(savedYAxes: savedFormData.savedYAxes);
+  }
+
+  void setGraphOptions({required SavedFormData savedFormData}) {
+    graph.options.displayTitle =
+        savedFormData.savedOptionsData.showTitle ?? true;
+    graph.options.legendDisplay =
+        savedFormData.savedOptionsData.showLegend ?? true;
+    graph.options.legendPosition =
+        savedFormData.savedOptionsData.legendPosition ?? "bottom";
+    graph.options.dataLabels =
+        savedFormData.savedOptionsData.showDataLabels ?? false;
   }
 
   String _getGraphString() {

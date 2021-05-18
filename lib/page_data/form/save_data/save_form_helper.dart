@@ -134,4 +134,15 @@ class SaveFormHelper {
 
     savedFormData.hasType = true;
   }
+
+  void saveOptions(bool? showTitle, bool? showLegend, String? legendPosition,
+      bool? showDataLabels) {
+    savedFormData.savedOptionsData.showTitle = showTitle;
+    savedFormData.savedOptionsData.showLegend = showLegend;
+    savedFormData.savedOptionsData.legendPosition =
+        legendPosition?.toLowerCase();
+    savedFormData.savedOptionsData.showDataLabels = showDataLabels;
+
+    savedFormData.hasOptions = true;
+  }
 }

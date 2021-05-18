@@ -80,7 +80,7 @@ class FormFields extends FormBloc<String, String> {
 
   final filledLine = BooleanFieldBloc();
 
-  final displayTitle = BooleanFieldBloc();
+  final displayTitle = BooleanFieldBloc(initialValue: true);
   final displayLegend = BooleanFieldBloc(initialValue: true);
 
   final legendPosition = SelectFieldBloc(
@@ -238,6 +238,9 @@ class FormFields extends FormBloc<String, String> {
           drawnLine.value,
           pointToPointLine.value,
           pointShapes.value);
+    } else if (state.currentStep == 5) {
+      saveFormHelper.saveOptions(displayTitle.value, displayLegend.value,
+          legendPosition.value, displayDataLabels.value);
     }
     emitSuccess();
   }
