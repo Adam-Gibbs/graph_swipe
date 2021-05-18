@@ -64,15 +64,20 @@ class SaveFormHelper {
     // Remove all non digits from string
     // TODO: This is very inefficit and ugly, look into regex
     tempStringList.forEach((element) {
+      String newElement = "";
       element.characters.forEach((char) {
-        if (!ACCEPTABLECHARS.contains(char)) {
-          char = "";
+        if (ACCEPTABLECHARS.contains(char)) {
+          newElement += char;
         }
       });
       try {
-        tempDoubleList.add(double.parse(element));
+        tempDoubleList.add(double.parse(newElement));
+        print("Following was a number: " + element + " we got: " + newElement);
       } catch (FormatException) {
-        print("Following is not a number: " + element);
+        print("Following is not a number: " +
+            element +
+            " best we got was: " +
+            newElement);
       }
     });
     // If temp list empty, just make null and deal with later
