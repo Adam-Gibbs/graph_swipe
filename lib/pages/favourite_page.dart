@@ -58,7 +58,7 @@ class _FavouritePageState extends State<FavouritePage> {
   }
 
   Widget _buildRow(WordPair pair) {
-    graphManager.createGraph("");
+    graphManager.createGraph();
     return ListTile(
       title: Text(
         pair.join(" "),

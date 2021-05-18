@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:graph_swipe/page_data/form/data_form/data_form_fields.dart';
+import 'package:graph_swipe/page_data/form/save_data/save_form_helper.dart';
 import 'package:graph_swipe/pages/data_page.dart';
 
 // From https://github.com/GiancarloCode/form_bloc
 class FormFields extends FormBloc<String, String> {
   final DataPageState dataPage;
+  final SaveFormHelper saveFormHelper;
 
   final title = TextFieldBloc(
     validators: [FieldBlocValidators.required],
@@ -90,7 +92,7 @@ class FormFields extends FormBloc<String, String> {
   );
   final displayDataLabels = BooleanFieldBloc();
 
-  FormFields(this.dataPage) {
+  FormFields(this.dataPage, this.saveFormHelper) {
     addFieldBlocs(
       step: 0,
       fieldBlocs: [title],
@@ -213,7 +215,11 @@ class FormFields extends FormBloc<String, String> {
 
   @override
   void onSubmitting() async {
-    // TODO: Save to Explore
+    if (state.currentStep == 0) {
+      saveFormHelper.saveName(title.value ?? '');
+    }
+
+    if (state.currentStep == 1) {}
     emitSuccess();
   }
 }

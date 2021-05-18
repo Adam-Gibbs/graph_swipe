@@ -79,8 +79,10 @@ class RandomFactory {
     return graph;
   }
 
-  Graph randomGraph() {
-    GraphFactory graphFactory = new GraphFactory(RandomString.randTitle());
+  Graph randomGraph(String? title) {
+    // if title is null (??), generate one randomly
+    GraphFactory graphFactory =
+        new GraphFactory(title ?? RandomString.randTitle());
 
     _setColumns(graphFactory);
     _addDataSets(graphFactory);

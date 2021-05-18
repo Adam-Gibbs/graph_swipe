@@ -12,8 +12,8 @@ class GraphManager {
     this.graph = graph;
   }
 
-  void createGraph(String title) {
-    graph = maker.randomGraph();
+  void createGraph({String? title = ""}) {
+    graph = maker.randomGraph(title);
   }
 
   String _getGraphString() {

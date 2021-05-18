@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:graph_swipe/graph_manager/graph_manager.dart';
+import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 import 'package:graph_swipe/page_data/page_size.dart';
 import 'package:graph_swipe/page_data/swipe_card_content.dart';
 import 'package:graph_swipe/pages/customise_page.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
 class ExplorePage extends StatefulWidget {
+  final SavedFormData savedFormData;
+  ExplorePage(this.savedFormData);
+
   @override
-  _ExplorePageState createState() => _ExplorePageState();
+  _ExplorePageState createState() => _ExplorePageState(savedFormData);
 }
 
 class _ExplorePageState extends State<ExplorePage> {
@@ -16,10 +20,13 @@ class _ExplorePageState extends State<ExplorePage> {
   late MatchEngine _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   GraphManager graphManager = new GraphManager();
+  final SavedFormData savedFormData;
+
+  _ExplorePageState(this.savedFormData);
 
   void addSwipeItems(int quantity) {
     for (int i = 0; i < quantity; i++) {
-      graphManager.createGraph("");
+      graphManager.createGraph(title: savedFormData.graphName);
       _swipeItems.add(SwipeItem(
           content: Content(
             graphData: graphManager.getGraphData(),
