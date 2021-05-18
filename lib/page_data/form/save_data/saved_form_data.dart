@@ -1,4 +1,5 @@
 import 'package:graph_swipe/page_data/form/save_data/saved%20_axes.dart';
+import 'package:graph_swipe/page_data/form/save_data/saved_data_sets.dart';
 
 class SavedFormData {
   // General
@@ -8,6 +9,10 @@ class SavedFormData {
   bool hasXAxes = false;
   final SavedAxes savedXAxes = new SavedAxes();
   List<String>? xAxisValues;
+
+  // DataSets
+  bool hasDataSets = false;
+  final List<SavedDataSet> savedDataSets = [];
 
   // Y Axis
   bool hasYAxes = false;
