@@ -13,12 +13,13 @@ class DataPageState extends State<DataPage> {
   var _type = StepperType.vertical;
   Color currentColor = Colors.blue;
 
+  // TODO: currently a bodge to redraw the form, should fix to just redraw individual Widget
   void changeColor(Color colour) => setState(() => currentColor = colour);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FormFields(),
+      create: (context) => FormFields(this),
       child: Builder(
         builder: (context) {
           return Theme(
@@ -52,7 +53,10 @@ class DataPageState extends State<DataPage> {
                     stepsBuilder: (formBloc) {
                       return [
                         FormStepBlocs.generalStep(formBloc!),
-                        FormStepBlocs.dataSetsStep(formBloc, this)
+                        FormStepBlocs.xAxesStep(formBloc),
+                        FormStepBlocs.dataSetsStep(formBloc, this),
+                        FormStepBlocs.yAxesStep(formBloc),
+                        FormStepBlocs.typeStep(formBloc, context, this),
                       ];
                     },
                   ),

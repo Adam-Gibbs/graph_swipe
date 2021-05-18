@@ -100,47 +100,6 @@ List<Widget> dataSetForm(DataSetFieldBloc dataSetField, BuildContext context,
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         child: const Text('Choose Colour')),
-    // BlocBuilder<ListFieldBloc<TextFieldBloc>,
-    //     ListFieldBlocState<TextFieldBloc>>(
-    //   bloc: dataSetField.hobbies,
-    //   builder: (context, state) {
-    //     if (state.fieldBlocs.isNotEmpty) {
-    //       return ListView.builder(
-    //         shrinkWrap: true,
-    //         physics: NeverScrollableScrollPhysics(),
-    //         itemCount: state.fieldBlocs.length,
-    //         itemBuilder: (context, i) {
-    //           final hobbyFieldBloc = state.fieldBlocs[i];
-    //           return Card(
-    //             color: Colors.blue[100],
-    //             child: Row(
-    //               children: <Widget>[
-    //                 Expanded(
-    //                   child: TextFieldBlocBuilder(
-    //                     textFieldBloc: hobbyFieldBloc,
-    //                     decoration: InputDecoration(
-    //                       labelText: 'Hobby #${i + 1}',
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 IconButton(
-    //                   icon: Icon(Icons.delete),
-    //                   onPressed: () =>
-    //                       dataSetField.hobbies.removeFieldBlocAt(i),
-    //                 ),
-    //               ],
-    //             ),
-    //           );
-    //         },
-    //       );
-    //     }
-    //     return Container();
-    //   },
-    // ),
-    // TextButton(
-    //   onPressed: onAddHobby,
-    //   child: Text('ADD HOBBY'),
-    // )
   ];
 }
 
