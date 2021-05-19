@@ -9,9 +9,6 @@ import 'package:graph_swipe/pages/data_page.dart';
 
 class FormStepBlocs {
   static const double CURVEDEDGE = 15;
-  static bool isLine() {
-    return true;
-  }
 
   static FormBlocStep generalStep(FormFields wizardFormBloc) {
     return FormBlocStep(
@@ -26,7 +23,6 @@ class FormStepBlocs {
                   TextFieldBlocBuilder(
                     textFieldBloc: wizardFormBloc.title,
                     keyboardType: TextInputType.text,
-                    isEnabled: isLine(),
                     enableOnlyWhenFormBlocCanSubmit: true,
                     decoration: InputDecoration(
                       labelText: 'Graph Title (Blank for random)',

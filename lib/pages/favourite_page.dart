@@ -112,6 +112,7 @@ class _FavouritePageState extends State<FavouritePage> {
     favouriteGraphs.unFavourite(graph);
   }
 
+  // Adapted from https://github.com/esysberlin/esys-flutter-share/blob/master/example/lib/main.dart
   void _shareImage(Graph graph) async {
     try {
       GraphManager shareGraph = new GraphManager().setGraph(graph);
