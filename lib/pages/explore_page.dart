@@ -65,7 +65,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    addSwipeItems(2);
+    addSwipeItems(5);
     return Scaffold(
         key: _scaffoldKey,
         body: Container(
