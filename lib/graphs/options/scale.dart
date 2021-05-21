@@ -11,18 +11,21 @@ class Scale {
   late bool displayLabel; // scaleLabel: {display: true}
   late String label; // scaleLabel: {labelString: 'Month'}
   late bool stacked; // stacked: true
+  late bool startZero; // ticks: {beginAtZero: true},
 
   Scale(String id, String position,
       {bool display = true,
       bool displayLabel = false,
       String label = "Axes Label",
-      bool stacked = false}) {
+      bool stacked = false,
+      bool startZero = true}) {
     this.id = id;
     this.position = position;
     this.display = display;
     this.displayLabel = displayLabel;
     this.label = label;
     this.stacked = stacked;
+    this.startZero = startZero;
   }
 
   factory Scale.fromJson(Map<String, dynamic> json) => _$ScaleFromJson(json);
@@ -56,6 +59,10 @@ class Scale {
     return "stacked: " + this.stacked.toString() + ",";
   }
 
+  String _showStart() {
+    return "ticks: {beginAtZero: " + this.startZero.toString() + ",},";
+  }
+
   String showScale() {
     return "{" +
         _showId() +
@@ -63,6 +70,7 @@ class Scale {
         _showDisplay() +
         _showLabel() +
         _showStacked() +
+        _showStart() +
         "},";
   }
 }
