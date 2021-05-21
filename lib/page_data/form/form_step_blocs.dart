@@ -179,6 +179,13 @@ class FormStepBlocs {
                       prefixIcon: Icon(Icons.swap_horiz),
                     ),
                   ),
+                  SwitchFieldBlocBuilder(
+                    booleanFieldBloc: wizardFormBloc.yStartZero,
+                    body: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Start at 0'),
+                    ),
+                  ),
                 ],
               ),
             )));
@@ -360,6 +367,13 @@ class FormStepBlocs {
                     body: Container(
                       alignment: Alignment.centerLeft,
                       child: Text('Display Data Labels'),
+                    ),
+                  ),
+                  SwitchFieldBlocBuilder(
+                    booleanFieldBloc: wizardFormBloc.stacked,
+                    body: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Stack data'),
                     ),
                   ),
                 ],

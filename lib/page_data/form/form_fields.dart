@@ -45,6 +45,8 @@ class FormFields extends FormBloc<String, String> {
     validators: [FieldBlocValidators.required],
   );
 
+  final yStartZero = BooleanFieldBloc(initialValue: true);
+
   final chartType = SelectFieldBloc(
     items: ['Bar', 'Line', 'Random'],
     initialValue: 'Random',
@@ -90,6 +92,8 @@ class FormFields extends FormBloc<String, String> {
   );
   final displayDataLabels = BooleanFieldBloc();
 
+  final stacked = BooleanFieldBloc();
+
   FormFields(this.dataPage, this.saveFormHelper) {
     addFieldBlocs(
       step: 0,
@@ -115,7 +119,8 @@ class FormFields extends FormBloc<String, String> {
         yAxesLabel,
         yAxesDisplayLabel,
         yAxesDisplayAxes,
-        yAxesPosition
+        yAxesPosition,
+        yStartZero
       ],
     );
     addFieldBlocs(
@@ -128,7 +133,8 @@ class FormFields extends FormBloc<String, String> {
         displayTitle,
         displayLegend,
         legendPosition,
-        displayDataLabels
+        displayDataLabels,
+        stacked
       ],
     );
 

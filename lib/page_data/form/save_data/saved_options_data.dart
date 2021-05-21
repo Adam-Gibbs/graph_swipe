@@ -3,4 +3,5 @@ class SavedOptionsData {
   bool? showLegend;
   String? legendPosition;
   bool? showDataLabels;
+  bool? stacked;
 }

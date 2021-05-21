@@ -13,52 +13,61 @@ import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 
 class RandomFactory {
   Random rand = Random();
+  late GraphFactory graphFactory;
+  late Graph graph;
 
-  List<int> randomColour() {
+  RandomFactory(String? title) {
+    // if title is null (??), generate one randomly
+    graphFactory = new GraphFactory(title ?? RandomString.randTitle());
+  }
+
+  List<int> _randomColour() {
     return ([rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)]);
   }
 
-  GraphFactory _setColumns(GraphFactory gf, {int? value}) {
-    return gf.setColumns(value ?? rand.nextInt(7) + 3);
+  RandomFactory setColumns({int? value}) {
+    graphFactory.setColumns(value ?? rand.nextInt(7) + 3);
+    return this;
   }
 
-  GraphFactory _addRandomDataSets(GraphFactory gf) {
+  RandomFactory addRandomDataSets() {
     int loops = rand.nextInt(4) + 1;
     for (int i = 0; i < loops; i++) {
-      gf.randomDataSet();
+      graphFactory.randomDataSet();
     }
-    return gf;
+    return this;
   }
 
-  GraphFactory _addDataSets(GraphFactory gf, List<SavedDataSet> savedDataSets) {
+  RandomFactory addDataSets(List<SavedDataSet> savedDataSets) {
     savedDataSets.forEach((element) {
-      List<int> dataColour = element.colour ?? randomColour();
-      gf.addDataSet(
+      List<int> dataColour = element.colour ?? _randomColour();
+      graphFactory.addDataSet(
           element.name ?? RandomString.randWord(), element.data ?? [0, 0, 0],
-          colour: (element.chooseColour ?? false) ? dataColour : randomColour(),
+          colour:
+              (element.chooseColour ?? false) ? dataColour : _randomColour(),
           transparency: element.tansparency ?? 0.8);
     });
-    return gf;
+    return this;
   }
 
-  GraphFactory _dataPairs(GraphFactory gf) {
+  RandomFactory dataPairs() {
     if (rand.nextDouble() < 0.2) {
-      gf.removeDataSets().randomDataPairs().allRandomColours();
+      graphFactory.removeDataSets().randomDataPairs().allRandomColours();
     }
-    return gf;
+    return this;
   }
 
-  Graph _chooseGraph(GraphFactory gf, {bool canPairs = true}) {
+  Graph _chooseGraph({bool canPairs = true}) {
     if (rand.nextBool()) {
       if (canPairs) {
-        _dataPairs(gf);
+        dataPairs();
       }
-      BarGraph aBar = RandomBarHelper.barGraph(gf);
+      BarGraph aBar = RandomBarHelper.barGraph(graphFactory);
       RandomBarHelper.randomBorderColour(rand, aBar);
       RandomBarHelper.roundedBars(rand, aBar);
       return aBar;
     } else {
-      LineGraph aLine = RandomLineHelper.lineGraph(gf);
+      LineGraph aLine = RandomLineHelper.lineGraph(graphFactory);
       RandomLineHelper.randomLineColour(rand, aLine);
       RandomLineHelper.randomLineStepped(rand, aLine);
       RandomLineHelper.randomLineDashed(rand, aLine);
@@ -70,96 +79,78 @@ class RandomFactory {
     }
   }
 
-  Graph _randomStacked(Graph graph) {
-    if (rand.nextDouble() < 0.3) {
-      graph.options.scales.makeStacked();
-    }
-    return graph;
+  RandomFactory randomStart(Graph graph) {
+    graph.options.scales.startNotZero();
+    return this;
   }
 
-  Graph _randomLables(Graph graph) {
+  RandomFactory randomStacked() {
+    if (rand.nextDouble() < 0.3) {
+      graph.options.scales.setStacked(true);
+    }
+    return this;
+  }
+
+  RandomFactory randomLables() {
     if (rand.nextDouble() < 0.1) {
       graph.options.dataLabels = true;
     }
-    return graph;
+    return this;
   }
 
-  Graph _randomAxesLables(Graph graph) {
+  RandomFactory randomAxesLables() {
     if (rand.nextDouble() < 0.2) {
       graph.options.scales.makeLabelsShow();
     }
-    return graph;
+    return this;
   }
 
-  Graph _randTwoAxes(Graph graph) {
+  RandomFactory randTwoAxes() {
     if (rand.nextDouble() < 0.05) {
       graph.options.scales.createYScale("y2", "right");
       graph.addYAxisRelation("y2");
     }
+    return this;
+  }
+
+  RandomFactory setLabels(SavedFormData savedFormData) {
+    if (savedFormData.hasXAxes) {
+      graphFactory.setLabels(savedFormData.savedXAxes);
+    } else {
+      graphFactory.randomLabels();
+    }
+
+    return this;
+  }
+
+  RandomFactory randomColours() {
+    graphFactory.allRandomColours();
+
+    return this;
+  }
+
+  RandomFactory defaultScales() {
+    graphFactory.defaultScales();
+
+    return this;
+  }
+
+  RandomFactory setGraph(SavedFormData savedFormData) {
+    if (savedFormData.savedTypeData.type == "bar") {
+      graph = _barGraph(savedFormData);
+    } else if (savedFormData.savedTypeData.type == "line") {
+      graph = _lineGraph(savedFormData);
+    } else {
+      graph = _chooseGraph();
+    }
+    return this;
+  }
+
+  Graph getGraph() {
     return graph;
   }
 
-  Graph randomGraph(String? title) {
-    // if title is null (??), generate one randomly
-    GraphFactory graphFactory =
-        new GraphFactory(title ?? RandomString.randTitle());
-
-    _setColumns(graphFactory);
-    _addRandomDataSets(graphFactory);
-    graphFactory.allRandomColours().randomLabels().defaultScales();
-    Graph newGraph = _chooseGraph(graphFactory);
-    _randomStacked(newGraph);
-    _randomLables(newGraph);
-    _randomAxesLables(newGraph);
-    return _randTwoAxes(newGraph);
-  }
-
-  Graph randomGraphWithDataSets(String? title,
-      {required List<SavedDataSet> savedDataSets}) {
-    // if title is null (??), generate one randomly
-    GraphFactory graphFactory =
-        new GraphFactory(title ?? RandomString.randTitle());
-
-    _setColumns(graphFactory, value: savedDataSets.first.data?.length);
-    _addDataSets(graphFactory, savedDataSets);
-    graphFactory.randomLabels().defaultScales();
-    Graph newGraph = _chooseGraph(graphFactory, canPairs: false);
-    _randomStacked(newGraph);
-    _randomLables(newGraph);
-    _randomAxesLables(newGraph);
-    return newGraph;
-  }
-
-  Graph barWithDataSets({required SavedFormData savedFormData}) {
-    // if title is null (??), generate one randomly
-    GraphFactory graphFactory =
-        new GraphFactory(savedFormData.graphName ?? RandomString.randTitle());
-
-    _addDataSets(graphFactory, savedFormData.savedDataSets);
-    graphFactory.defaultScales();
-
-    BarGraph aBar = RandomBarHelper.barGraph(graphFactory);
-    if (savedFormData.savedTypeData.isBorderColour!) {
-      aBar.setAllBorderColour(
-          savedFormData.savedTypeData.borderColour ?? [255, 255, 255],
-          savedFormData.savedTypeData.borderTransparency ?? 1.0);
-    }
-    if (savedFormData.savedTypeData.boldBorders!) {
-      aBar.setAllBorderThickness(4);
-    }
-    aBar.options.roundedBars = savedFormData.savedTypeData.roundBars ?? false;
-
-    _randomLables(aBar);
-    return aBar;
-  }
-
-  Graph lineWithDataSets({required SavedFormData savedFormData}) {
-    // if title is null (??), generate one randomly
-    GraphFactory graphFactory =
-        new GraphFactory(savedFormData.graphName ?? RandomString.randTitle());
-
-    _addDataSets(graphFactory, savedFormData.savedDataSets);
-    graphFactory.defaultScales();
+  Graph _lineGraph(SavedFormData savedFormData) {
     LineGraph aLine = RandomLineHelper.lineGraph(graphFactory);
 
     List<Function> toRunRandom = [];
@@ -197,7 +188,28 @@ class RandomFactory {
 
     toRunRandom.forEach((element) => {element(rand, aLine)});
 
-    _randomLables(aLine);
     return aLine;
+  }
+
+  Graph _barGraph(SavedFormData savedFormData) {
+    // if title is null (??), generate one randomly
+    GraphFactory graphFactory =
+        new GraphFactory(savedFormData.graphName ?? RandomString.randTitle());
+
+    addDataSets(savedFormData.savedDataSets);
+    graphFactory.defaultScales();
+
+    BarGraph aBar = RandomBarHelper.barGraph(graphFactory);
+    if (savedFormData.savedTypeData.isBorderColour!) {
+      aBar.setAllBorderColour(
+          savedFormData.savedTypeData.borderColour ?? [255, 255, 255],
+          savedFormData.savedTypeData.borderTransparency ?? 1.0);
+    }
+    if (savedFormData.savedTypeData.boldBorders!) {
+      aBar.setAllBorderThickness(4);
+    }
+    aBar.options.roundedBars = savedFormData.savedTypeData.roundBars ?? false;
+
+    return aBar;
   }
 }

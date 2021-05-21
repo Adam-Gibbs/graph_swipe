@@ -3,4 +3,5 @@ class SavedAxes {
   String? label;
   bool? displayLabel;
   bool? display;
+  bool? startZero;
 }

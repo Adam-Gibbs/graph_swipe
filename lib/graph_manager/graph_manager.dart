@@ -7,7 +7,7 @@ import 'package:graph_swipe/page_data/form/save_data/saved_form_data.dart';
 
 class GraphManager {
   late Graph graph;
-  RandomFactory maker = new RandomFactory();
+  late RandomFactory maker;
   Random rand = Random();
 
   GraphManager setGraph(Graph graph) {
@@ -16,18 +16,23 @@ class GraphManager {
   }
 
   void createGraph({required SavedFormData savedFormData}) {
-    if (savedFormData.hasType) {
-      if (savedFormData.savedTypeData.type == "bar") {
-        graph = maker.barWithDataSets(savedFormData: savedFormData);
-      } else if (savedFormData.savedTypeData.type == "line") {
-        graph = maker.lineWithDataSets(savedFormData: savedFormData);
-      }
-    } else if (savedFormData.hasDataSets) {
-      graph = maker.randomGraphWithDataSets(savedFormData.graphName,
-          savedDataSets: savedFormData.savedDataSets);
+    maker = new RandomFactory(savedFormData.graphName);
+
+    if (savedFormData.hasDataSets) {
+      maker.addDataSets(savedFormData
+          .savedDataSets); // Also adds random colours if none selected
     } else {
-      graph = maker.randomGraph(savedFormData.graphName);
+      maker.setColumns().addRandomDataSets().randomColours();
     }
+
+    maker
+        .setLabels(savedFormData)
+        .defaultScales()
+        .setGraph(savedFormData)
+        .randomStacked()
+        .randomLables()
+        .randomAxesLables()
+        .randTwoAxes();
 
     if (savedFormData.hasXAxes) {
       setGraphXAxis(savedFormData: savedFormData);
@@ -38,6 +43,8 @@ class GraphManager {
     if (savedFormData.hasOptions) {
       setGraphOptions(savedFormData: savedFormData);
     }
+
+    graph = maker.getGraph();
   }
 
   void setGraphXAxis({required SavedFormData savedFormData}) {
@@ -59,6 +66,8 @@ class GraphManager {
         savedFormData.savedOptionsData.legendPosition ?? "bottom";
     graph.options.dataLabels =
         savedFormData.savedOptionsData.showDataLabels ?? false;
+    graph.options.scales
+        .setStacked(savedFormData.savedOptionsData.stacked ?? false);
   }
 
   String _getGraphString() {

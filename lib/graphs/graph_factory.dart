@@ -7,6 +7,8 @@ import 'package:graph_swipe/graphs/types/line_graph.dart';
 
 import 'dart:math';
 
+import 'package:graph_swipe/page_data/form/save_data/saved%20_axes.dart';
+
 class GraphFactory {
   late String title;
   List<String> xLabels = [];
@@ -82,6 +84,13 @@ class GraphFactory {
   }
 
   GraphFactory randomLabels() {
+    for (int i = 0; i < columns; i++) {
+      xLabels.add(RandomString.randWord());
+    }
+    return this;
+  }
+
+  GraphFactory setLabels(SavedAxes axes) {
     for (int i = 0; i < columns; i++) {
       xLabels.add(RandomString.randWord());
     }

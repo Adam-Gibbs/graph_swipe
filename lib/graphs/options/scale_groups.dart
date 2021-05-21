@@ -56,9 +56,9 @@ class ScaleGroups {
         stacked: stacked));
   }
 
-  void makeStacked() {
-    xScales.forEach((element) => {element.stacked = true});
-    yScales.forEach((element) => {element.stacked = true});
+  void setStacked(bool value) {
+    xScales.forEach((element) => {element.stacked = value});
+    yScales.forEach((element) => {element.stacked = value});
   }
 
   void setXAxis({required SavedAxes savedXAxes}) {
@@ -76,6 +76,7 @@ class ScaleGroups {
       element.displayLabel = savedYAxes.displayLabel ?? false;
       element.display = savedYAxes.display ?? true;
       element.position = savedYAxes.position ?? "bottom";
+      element.startZero = savedYAxes.startZero ?? true;
     });
   }
 
@@ -87,6 +88,12 @@ class ScaleGroups {
     yScales.forEach((element) {
       element.displayLabel = true;
       element.randomLabel();
+    });
+  }
+
+  void startNotZero() {
+    yScales.forEach((element) {
+      element.startZero = false;
     });
   }
 
