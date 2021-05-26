@@ -8,93 +8,121 @@ import 'package:graph_swipe/pages/data_page.dart';
 class FormFields extends FormBloc<String, String> {
   final DataPageState dataPage;
   final SaveFormHelper saveFormHelper;
+  late TextFieldBloc title;
+  late ListFieldBloc<DataSetFieldBloc> dataSets;
+  late TextFieldBloc xAxesValues;
+  late TextFieldBloc xAxesLabel;
+  late BooleanFieldBloc xAxesDisplayLabel;
+  late BooleanFieldBloc xAxesDisplayAxes;
+  late SelectFieldBloc<String, dynamic> xAxesPosition;
+  late TextFieldBloc yAxesLabel;
+  late BooleanFieldBloc yAxesDisplayLabel;
+  late BooleanFieldBloc yAxesDisplayAxes;
+  late SelectFieldBloc<String, dynamic> yAxesPosition;
+  late BooleanFieldBloc yStartZero;
+  late SelectFieldBloc<String, dynamic> chartType;
+  late BooleanFieldBloc chooseBorderColour;
+  late BooleanFieldBloc boldBorder;
+  late BooleanFieldBloc roundedBars;
+  late SelectFieldBloc<String, dynamic> pointShapes;
+  late BooleanFieldBloc displayLines;
+  late SelectFieldBloc<String, dynamic> drawnLine;
+  late SelectFieldBloc<String, dynamic> pointToPointLine;
+  late BooleanFieldBloc filledLine;
+  late BooleanFieldBloc displayTitle;
+  late BooleanFieldBloc displayLegend;
+  late SelectFieldBloc<String, dynamic> legendPosition;
+  late BooleanFieldBloc displayDataLabels;
+  late BooleanFieldBloc stacked;
 
-  final title = TextFieldBloc();
-
-  var dataSets = ListFieldBloc<DataSetFieldBloc>();
-
-  final xAxesValues = TextFieldBloc(
-    validators: [FieldBlocValidators.required],
-  );
-
-  final xAxesLabel = TextFieldBloc(
-    validators: [FieldBlocValidators.required],
-  );
-
-  final xAxesDisplayLabel = BooleanFieldBloc();
-
-  final xAxesDisplayAxes = BooleanFieldBloc(initialValue: true);
-
-  final xAxesPosition = SelectFieldBloc(
-    items: ['Top', 'Bottom'],
-    initialValue: 'Bottom',
-    validators: [FieldBlocValidators.required],
-  );
-
-  final yAxesLabel = TextFieldBloc(
-    validators: [FieldBlocValidators.required],
-  );
-
-  final yAxesDisplayLabel = BooleanFieldBloc();
-
-  final yAxesDisplayAxes = BooleanFieldBloc(initialValue: true);
-
-  final yAxesPosition = SelectFieldBloc(
-    items: ['Left', 'Right'],
-    initialValue: 'Left',
-    validators: [FieldBlocValidators.required],
-  );
-
-  final yStartZero = BooleanFieldBloc(initialValue: true);
-
-  final chartType = SelectFieldBloc(
-    items: ['Bar', 'Line', 'Random'],
-    initialValue: 'Random',
-    validators: [FieldBlocValidators.required],
-  );
-
-  final chooseBorderColour = BooleanFieldBloc();
   Color borderColour = Colors.blue;
 
-  final boldBorder = BooleanFieldBloc();
-
-  final roundedBars = BooleanFieldBloc();
-
-  final pointShapes = SelectFieldBloc(
-    items: ['Circle', 'Star', 'Triangle', 'Random'],
-    initialValue: 'Random',
-    validators: [FieldBlocValidators.required],
-  );
-
-  final displayLines = BooleanFieldBloc(initialValue: true);
-
-  final drawnLine = SelectFieldBloc(
-    items: ['Dashed', 'Solid', 'Random'],
-    initialValue: 'Random',
-    validators: [FieldBlocValidators.required],
-  );
-
-  final pointToPointLine = SelectFieldBloc(
-    items: ['Curved', 'Straight', 'Stepped', 'Random'],
-    initialValue: 'Random',
-    validators: [FieldBlocValidators.required],
-  );
-
-  final filledLine = BooleanFieldBloc();
-
-  final displayTitle = BooleanFieldBloc(initialValue: true);
-  final displayLegend = BooleanFieldBloc(initialValue: true);
-
-  final legendPosition = SelectFieldBloc(
-    items: ['Top', 'Bottom', 'Left', 'Right'],
-    initialValue: 'Bottom',
-    validators: [FieldBlocValidators.required],
-  );
-  final displayDataLabels = BooleanFieldBloc();
-
-  final stacked = BooleanFieldBloc();
-
   FormFields(this.dataPage, this.saveFormHelper) {
+    title = TextFieldBloc(
+        initialValue: saveFormHelper.savedFormData.graphName ?? "");
+
+    dataSets = ListFieldBloc<DataSetFieldBloc>();
+
+    xAxesValues = TextFieldBloc(
+      validators: [FieldBlocValidators.required],
+    );
+
+    xAxesLabel = TextFieldBloc(
+      validators: [FieldBlocValidators.required],
+    );
+
+    xAxesDisplayLabel = BooleanFieldBloc();
+
+    xAxesDisplayAxes = BooleanFieldBloc(initialValue: true);
+
+    xAxesPosition = SelectFieldBloc(
+      items: ['Top', 'Bottom'],
+      initialValue: 'Bottom',
+      validators: [FieldBlocValidators.required],
+    );
+
+    yAxesLabel = TextFieldBloc(
+      validators: [FieldBlocValidators.required],
+    );
+
+    yAxesDisplayLabel = BooleanFieldBloc();
+
+    yAxesDisplayAxes = BooleanFieldBloc(initialValue: true);
+
+    yAxesPosition = SelectFieldBloc(
+      items: ['Left', 'Right'],
+      initialValue: 'Left',
+      validators: [FieldBlocValidators.required],
+    );
+
+    yStartZero = BooleanFieldBloc(initialValue: true);
+
+    chartType = SelectFieldBloc(
+      items: ['Bar', 'Line', 'Random'],
+      initialValue: 'Random',
+      validators: [FieldBlocValidators.required],
+    );
+
+    chooseBorderColour = BooleanFieldBloc();
+
+    boldBorder = BooleanFieldBloc();
+
+    roundedBars = BooleanFieldBloc();
+
+    pointShapes = SelectFieldBloc(
+      items: ['Circle', 'Star', 'Triangle', 'Random'],
+      initialValue: 'Random',
+      validators: [FieldBlocValidators.required],
+    );
+
+    displayLines = BooleanFieldBloc(initialValue: true);
+
+    drawnLine = SelectFieldBloc(
+      items: ['Dashed', 'Solid', 'Random'],
+      initialValue: 'Random',
+      validators: [FieldBlocValidators.required],
+    );
+
+    pointToPointLine = SelectFieldBloc(
+      items: ['Curved', 'Straight', 'Stepped', 'Random'],
+      initialValue: 'Random',
+      validators: [FieldBlocValidators.required],
+    );
+
+    filledLine = BooleanFieldBloc();
+
+    displayTitle = BooleanFieldBloc(initialValue: true);
+    displayLegend = BooleanFieldBloc(initialValue: true);
+
+    legendPosition = SelectFieldBloc(
+      items: ['Top', 'Bottom', 'Left', 'Right'],
+      initialValue: 'Bottom',
+      validators: [FieldBlocValidators.required],
+    );
+    displayDataLabels = BooleanFieldBloc();
+
+    stacked = BooleanFieldBloc();
+
     addFieldBlocs(
       step: 0,
       fieldBlocs: [title],
@@ -195,21 +223,55 @@ class FormFields extends FormBloc<String, String> {
     );
   }
 
-  DataSetFieldBloc getDataSet() {
+  DataSetFieldBloc getDataSet(int index) {
     return DataSetFieldBloc(
-        dataSetName: TextFieldBloc(validators: [FieldBlocValidators.required]),
-        data: TextFieldBloc(validators: [FieldBlocValidators.required]),
-        chooseColour: BooleanFieldBloc(),
-        colour: Colors.blue,
+        dataSetName: TextFieldBloc(
+            validators: [FieldBlocValidators.required],
+            initialValue:
+                saveFormHelper.savedFormData.savedDataSets?[index].name),
+        data: TextFieldBloc(
+            validators: [FieldBlocValidators.required],
+            initialValue: saveFormHelper
+                .savedFormData.savedDataSets?[index].data
+                .toString()),
+        chooseColour: BooleanFieldBloc(
+            initialValue: saveFormHelper
+                .savedFormData.savedDataSets?[index].chooseColour),
+        colour: Color.fromARGB(
+            (saveFormHelper.savedFormData.savedDataSets?[index].tansparency ??
+                        0.8)
+                    .toInt() *
+                255,
+            saveFormHelper.savedFormData.savedDataSets?[index].colour?[0] ?? 33,
+            saveFormHelper.savedFormData.savedDataSets?[index].colour?[1] ??
+                150,
+            saveFormHelper.savedFormData.savedDataSets?[index].colour?[2] ??
+                243),
         dataPage: dataPage);
   }
 
-  void addDataSet() {
+  void addDataSet(int index) {
     dataSets.addFieldBloc(DataSetFieldBloc(
-        dataSetName: TextFieldBloc(validators: [FieldBlocValidators.required]),
-        data: TextFieldBloc(validators: [FieldBlocValidators.required]),
+        dataSetName: TextFieldBloc(
+            validators: [FieldBlocValidators.required],
+            initialValue:
+                saveFormHelper.savedFormData.savedDataSets?[index].name),
+        data: TextFieldBloc(
+            validators: [FieldBlocValidators.required],
+            initialValue: saveFormHelper
+                .savedFormData.savedDataSets?[index].data
+                .toString()),
         chooseColour: BooleanFieldBloc(),
-        colour: Colors.blue,
+        colour: Color.fromARGB(
+            (saveFormHelper.savedFormData.savedDataSets?[index].tansparency ??
+                        0.8)
+                    .toInt() *
+                255,
+            saveFormHelper.savedFormData.savedDataSets?[index].colour?[0] ?? 33,
+            saveFormHelper.savedFormData.savedDataSets?[index].colour?[1] ??
+                150,
+            saveFormHelper.savedFormData.savedDataSets?[index].colour?[2] ??
+                243),
         dataPage: dataPage));
   }
 

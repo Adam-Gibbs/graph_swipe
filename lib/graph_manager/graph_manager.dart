@@ -34,6 +34,8 @@ class GraphManager {
         .randomAxesLables()
         .randTwoAxes();
 
+    graph = maker.getGraph();
+
     if (savedFormData.hasXAxes) {
       setGraphXAxis(savedFormData: savedFormData);
     }
@@ -43,14 +45,10 @@ class GraphManager {
     if (savedFormData.hasOptions) {
       setGraphOptions(savedFormData: savedFormData);
     }
-
-    graph = maker.getGraph();
   }
 
   void setGraphXAxis({required SavedFormData savedFormData}) {
     graph.options.scales.setXAxis(savedXAxes: savedFormData.savedXAxes);
-    // If saved values null, keep random ones
-    graph.xLabels = savedFormData.xAxisValues ?? graph.xLabels;
   }
 
   void setGraphYAxis({required SavedFormData savedFormData}) {

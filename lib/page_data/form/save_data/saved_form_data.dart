@@ -14,7 +14,7 @@ class SavedFormData {
 
   // DataSets
   bool hasDataSets = false;
-  final List<SavedDataSet> savedDataSets = [];
+  List<SavedDataSet>? savedDataSets;
 
   // Y Axis
   bool hasYAxes = false;

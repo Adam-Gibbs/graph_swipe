@@ -23,7 +23,7 @@ class SaveFormHelper {
 
   void reset() {
     savedFormData.graphName = null;
-    savedFormData.savedDataSets.clear();
+    savedFormData.savedDataSets?.clear();
     savedFormData.hasXAxes = false;
     savedFormData.hasDataSets = false;
     savedFormData.hasYAxes = false;
@@ -94,7 +94,11 @@ class SaveFormHelper {
     // If temp list empty, just make null and deal with later
     savedDataSet.data = tempDoubleList.length == 0 ? null : tempDoubleList;
 
-    savedFormData.savedDataSets.add(savedDataSet);
+    if (savedFormData.savedDataSets == null) {
+      savedFormData.savedDataSets = [savedDataSet];
+    } else {
+      savedFormData.savedDataSets?.add(savedDataSet);
+    }
     savedFormData.hasDataSets = true;
   }
 

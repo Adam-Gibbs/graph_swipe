@@ -4,6 +4,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:graph_swipe/page_data/form/data_form/data_form_blocs.dart';
 import 'package:graph_swipe/page_data/form/data_form/data_form_fields.dart';
 import 'package:graph_swipe/page_data/form/form_fields.dart';
+import 'package:graph_swipe/page_data/form/save_data/saved_data_sets.dart';
 import 'package:graph_swipe/page_data/page_size.dart';
 import 'package:graph_swipe/pages/data_page.dart';
 
@@ -89,8 +90,21 @@ class FormStepBlocs {
             )));
   }
 
-  static FormBlocStep dataSetsStep(
-      FormFields wizardFormBloc, DataPageState dataPage) {
+  static ListFieldBlocState<DataSetFieldBloc> checkPrevBlocks(
+      FormFields wizardFormBloc,
+      ListFieldBlocState<DataSetFieldBloc> state,
+      List<SavedDataSet>? savedDataSets) {
+    int blockCount = 0;
+    while ((savedDataSets?.length ?? 0) > state.fieldBlocs.length) {
+      blockCount++;
+      state.fieldBlocs.add(wizardFormBloc.getDataSet(blockCount));
+    }
+    return state;
+  }
+
+  static FormBlocStep dataSetsStep(FormFields wizardFormBloc,
+      DataPageState dataPage, List<SavedDataSet>? savedDataSets) {
+    int dataSetBlocks = 0;
     return FormBlocStep(
       title: Text('Data'),
       content: Column(
@@ -100,10 +114,11 @@ class FormStepBlocs {
               bloc: wizardFormBloc.dataSets,
               builder: (context, state) {
                 if (state.fieldBlocs.length > 0) {
+                  state.fieldBlocs.first = wizardFormBloc.getDataSet(0);
                   return DefaultDataSetCard(
                       dataSetField: state.fieldBlocs[0], dataPage: dataPage);
                 } else {
-                  state.fieldBlocs.add(wizardFormBloc.getDataSet());
+                  state.fieldBlocs.add(wizardFormBloc.getDataSet(0));
                   return DefaultDataSetCard(
                       dataSetField: state.fieldBlocs[0], dataPage: dataPage);
                 }
@@ -112,6 +127,8 @@ class FormStepBlocs {
               ListFieldBlocState<DataSetFieldBloc>>(
             bloc: wizardFormBloc.dataSets,
             builder: (context, state) {
+              dataSetBlocks++;
+              state = checkPrevBlocks(wizardFormBloc, state, savedDataSets);
               if (state.fieldBlocs.length > 1) {
                 return ListView.builder(
                     shrinkWrap: true,
@@ -130,7 +147,7 @@ class FormStepBlocs {
             },
           ),
           ElevatedButton(
-            onPressed: wizardFormBloc.addDataSet,
+            onPressed: () => wizardFormBloc.addDataSet(dataSetBlocks),
             child: Text('ADD DATA SET'),
           ),
         ],

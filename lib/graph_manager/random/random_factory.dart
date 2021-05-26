@@ -38,8 +38,8 @@ class RandomFactory {
     return this;
   }
 
-  RandomFactory addDataSets(List<SavedDataSet> savedDataSets) {
-    savedDataSets.forEach((element) {
+  RandomFactory addDataSets(List<SavedDataSet>? savedDataSets) {
+    savedDataSets?.forEach((element) {
       List<int> dataColour = element.colour ?? _randomColour();
       graphFactory.addDataSet(
           element.name ?? RandomString.randWord(), element.data ?? [0, 0, 0],

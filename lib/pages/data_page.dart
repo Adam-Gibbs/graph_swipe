@@ -69,7 +69,8 @@ class DataPageState extends State<DataPage> {
                       return [
                         FormStepBlocs.generalStep(formBloc!),
                         FormStepBlocs.xAxesStep(formBloc),
-                        FormStepBlocs.dataSetsStep(formBloc, this),
+                        FormStepBlocs.dataSetsStep(
+                            formBloc, this, savedFormData.savedDataSets),
                         FormStepBlocs.yAxesStep(formBloc),
                         FormStepBlocs.typeStep(formBloc, context, this),
                         FormStepBlocs.optionsStep(formBloc)
